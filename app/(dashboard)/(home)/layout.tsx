@@ -1,3 +1,5 @@
+"use client";
+
 import DesktopSidebar from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
 
