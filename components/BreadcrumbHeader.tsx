@@ -16,7 +16,7 @@ const BreadcrumbHeader = () => {
 
   return (
     <div className="flex items-center flex-start">
-      <MobileSidebar></MobileSidebar>
+      <MobileSidebar />
       <Breadcrumb>
         <BreadcrumbList>
           {paths.map((path, index) => (
