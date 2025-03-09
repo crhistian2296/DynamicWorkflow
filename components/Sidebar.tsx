@@ -43,7 +43,7 @@ const DesktopSidebar = () => {
       <div className="flex flex-col p-4">
         {routes.map((route) => (
           <Link
-            href={route.href}
+            href={route.href || "/"}
             key={route.href}
             className={buttonVariants({
               variant: activeRoute.href === route.href ? "sidebarActiveItem" : "sidebarItem",
