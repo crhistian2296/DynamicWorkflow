@@ -57,7 +57,11 @@ const UserWorkflows = async () => {
       );
     }
 
-    return <div className="space-y">UserWorkflow</div>;
+    return (
+      <div className="space-y">
+        <pre>{JSON.stringify(workflows, null, 4)}</pre>
+      </div>
+    );
   } catch (error: any) {
     return (
       <Alert variant={"destructive"}>
