@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle, InboxIcon } from "lucide-react";
 import { Suspense } from "react";
 import CreateWorkflowDialog from "./_components/CreateWorkflowDialog";
+import { WorkflowCard } from "./_components/WorkflowCard";
 
 const page = () => {
   return (
@@ -59,7 +60,11 @@ const UserWorkflows = async () => {
 
     return (
       <div className="space-y">
-        <pre>{JSON.stringify(workflows, null, 4)}</pre>
+        <div className="grid grid-cols-1 gap-4">
+          {workflows.map((workflow) => (
+            <WorkflowCard key={workflow.id} workflow={workflow} />
+          ))}
+        </div>
       </div>
     );
   } catch (error: any) {
