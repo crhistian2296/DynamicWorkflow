@@ -15,9 +15,11 @@ const layout = ({ children }: { children: React.ReactNode }) => {
           <BreadcrumbHeader />
           <div className="gap-1 flex items-center">
             <ModeToggle />
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+            <div className="ml-1">
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>{" "}
           </div>
         </header>
 
