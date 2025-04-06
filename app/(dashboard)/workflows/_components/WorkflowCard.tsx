@@ -34,7 +34,10 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <CardTitle className="text-lg font-semibold">
-            <Link href={`/workflows/${id}`} className="hover:underline transition-all duration-300">
+            <Link
+              href={`/workflow/editor/${id}`}
+              className="hover:underline transition-all duration-300"
+            >
               {name}
             </Link>
           </CardTitle>
@@ -64,7 +67,7 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
         </div>
         <div className="flex items-center">
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/workflows/editor/${id}`}>
+            <Link href={`/workflow/editor/${id}`}>
               <SettingsIcon className="mr-1 h-3 w-3" />
               Edit
             </Link>
