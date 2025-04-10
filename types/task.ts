@@ -1,3 +1,3 @@
 export enum TaskType {
-  LAUNCH_BROSER = "LAUNCH_BROSER",
+  LAUNCH_BROWSER = "LAUNCH_BROWSER",
 }
