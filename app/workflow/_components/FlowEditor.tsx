@@ -14,7 +14,7 @@ import "@xyflow/react/dist/style.css";
 import NodeComponent from "./nodes/NodeComponent";
 
 const nodeTypes = {
-  Node: NodeComponent,
+  FlowScrapeNode: NodeComponent,
 };
 
 const FlowEditor = ({ workflow }: { workflow: Workflow }) => {

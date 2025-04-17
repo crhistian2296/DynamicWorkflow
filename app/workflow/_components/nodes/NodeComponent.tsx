@@ -1,8 +1,18 @@
+import { AppNodeData } from "@/types/appNode";
 import { NodeProps } from "@xyflow/react";
 import { memo } from "react";
 import NodeCard from "./NodeCard";
+import NodeHeader from "./NodeHeader";
 
-const NodeComponent = memo(({ id }: NodeProps) => <NodeCard nodeId={id}>AppNode</NodeCard>);
+const NodeComponent = ({ id, selected, data }: NodeProps) => {
+  const nodeData = data as AppNodeData;
 
-export default NodeComponent;
+  return (
+    <NodeCard nodeId={id} isSelected={selected ?? false}>
+      <NodeHeader taskType={nodeData.type} />
+    </NodeCard>
+  );
+};
+
 NodeComponent.displayName = "NodeComponent";
+export default memo(NodeComponent);
