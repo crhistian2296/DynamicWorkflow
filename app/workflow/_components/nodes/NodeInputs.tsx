@@ -8,11 +8,11 @@ export const NodeInputs = ({ children }: { children: ReactNode }) => {
   return <div className="flex flex-col divide-y gap-2">{children}</div>;
 };
 
-export const NodeInput = ({ input }: { input: TaskParam }) => {
+export const NodeInput = ({ input, nodeId }: { input: TaskParam; nodeId: string }) => {
   return (
     <div className="flex justify-start relative p-3 bg-secondary w-full">
       {/* <pre>{JSON.stringify(input, null, 4)}</pre> */}
-      <NodeParamField param={input} />
+      <NodeParamField param={input} nodeId={nodeId} />
       {!input.hideHandle && (
         <Handle
           id={input.name}
