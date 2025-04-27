@@ -7,9 +7,10 @@ import SaveBtn from "./SaveBtn";
 interface TopbarProps {
   title: string;
   subtitle?: string;
+  workflowId: string;
 }
 
-const Topbar = ({ title, subtitle }: TopbarProps) => {
+const Topbar = ({ title, subtitle, workflowId }: TopbarProps) => {
   const router = useRouter();
 
   return (
@@ -28,7 +29,7 @@ const Topbar = ({ title, subtitle }: TopbarProps) => {
         </div>
       </div>
       <div className="flex gap-1 flex-1 justify-end">
-        <SaveBtn />
+        <SaveBtn workflowId={workflowId} />
       </div>
     </header>
   );
