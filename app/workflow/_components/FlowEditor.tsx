@@ -1,5 +1,3 @@
-import { CreateFlowNode } from "@/lib/workflow/createFlowNode";
-import { TaskType } from "@/types/task";
 import { Workflow } from "@prisma/client";
 import {
   Background,
@@ -8,9 +6,12 @@ import {
   ReactFlow,
   useEdgesState,
   useNodesState,
+  useReactFlow,
+  useViewport,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
+import { useEffect } from "react";
 import NodeComponent from "./nodes/NodeComponent";
 
 const nodeTypes = {
@@ -23,8 +24,34 @@ const fitViewOptions = {
 };
 
 const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
-  const [nodes, setNodes, onNodesChange] = useNodesState([CreateFlowNode(TaskType.LAUNCH_BROWSER)]);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgsChange] = useEdgesState([]);
+  const { x, y, zoom } = useViewport();
+  const { setViewport } = useReactFlow();
+
+  useEffect(() => {
+    try {
+      const flow = JSON.parse(workflow.definition);
+      if (!flow) return;
+
+      setNodes(flow.nodes || []);
+      setEdges(flow.edges || []);
+
+      if (!x || !y || !zoom) return;
+
+      setViewport({
+        x,
+        y,
+        zoom,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error("Error parsing workflow definition: " + error.message);
+      }
+      throw new Error("Error parsing workflow definition: Unknown error");
+    }
+  }, [workflow.definition, setNodes, setEdges, setViewport, x, y, zoom]);
+
   return (
     <main className="h-full w-full">
       <ReactFlow
