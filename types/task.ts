@@ -7,6 +7,7 @@ export enum TaskParamType {
   STRING = "STRING",
   NUMBER = "NUMBER",
   BOOLEAN = "BOOLEAN",
+  BROWSER_INSTANCE = "BROWSER_INSTANCE",
 }
 
 export interface TaskParam {

@@ -1,15 +1,15 @@
 import { TaskParamType, TaskType } from "@/types/task";
 import { CodeIcon, LucideProps } from "lucide-react";
 
-export const PageToHtml = {
+export const PageToHtmlTask = {
   type: TaskType.PAGE_TO_HTML,
-  label: "Get the Html from a page",
-  icon: (props: LucideProps) => <CodeIcon className="stroke-pink-400" {...props} />,
+  label: "Get the Html from page",
+  icon: (props: LucideProps) => <CodeIcon className="stroke-orange-400" {...props} />,
   isEntryPoint: false,
   inputs: [
     {
       name: "Web page",
-      type: TaskParamType.STRING,
+      type: TaskParamType.BROWSER_INSTANCE,
       required: true,
     },
   ],
