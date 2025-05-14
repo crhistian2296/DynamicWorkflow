@@ -53,13 +53,13 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
       </CardHeader>
 
       <CardContent className="flex items-center justify-between">
-        <div className="flex items-center text-sm text-gray-500 space-x-4">
+        <div className="flex flex-col items-start text-sm text-gray-500">
           <div className="flex items-center">
             <CalendarIcon className="mr-1 h-3 w-3" />
             <span>Created {formatDistanceToNow(createdDate, { addSuffix: true })}</span>
           </div>
           {isUpdated && (
-            <div className="flex items-center">
+            <div className="flex items-center ml-0">
               <SettingsIcon className="mr-1 h-3 w-3" />
               <span>Updated {formatDistanceToNow(updatedDate, { addSuffix: true })}</span>
             </div>
