@@ -1,8 +1,11 @@
 import { Workflow } from "@prisma/client";
 import {
+  addEdge,
   Background,
   BackgroundVariant,
+  Connection,
   Controls,
+  Edge,
   ReactFlow,
   useEdgesState,
   useNodesState,
@@ -15,10 +18,15 @@ import { AppNode } from "@/types/appNode";
 import { TaskType } from "@/types/task";
 import "@xyflow/react/dist/style.css";
 import { useCallback, useEffect } from "react";
+import { DeletableEdge } from "./edges/DeletableEdge";
 import NodeComponent from "./nodes/NodeComponent";
 
 const nodeTypes = {
   FlowScrapeNode: NodeComponent,
+};
+
+const edgeTypes = {
+  default: DeletableEdge,
 };
 
 const snapGrid: [number, number] = [50, 50];
@@ -28,7 +36,7 @@ const fitViewOptions = {
 
 const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
-  const [edges, setEdges, onEdgsChange] = useEdgesState([]);
+  const [edges, setEdges, onEdgsChange] = useEdgesState<Edge>([]);
   const { x, y, zoom } = useViewport();
   const { setViewport, screenToFlowPosition } = useReactFlow();
 
@@ -77,6 +85,14 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
     [setNodes, screenToFlowPosition]
   );
 
+  const onConnect = useCallback(
+    (connection: Connection) => {
+      console.log("onConnect", connection);
+      setEdges((eds) => addEdge({ ...connection, animated: true }, eds));
+    },
+    [setEdges]
+  );
+
   return (
     <main className="h-full w-full">
       <ReactFlow
@@ -85,12 +101,14 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgsChange}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         snapToGrid
         snapGrid={snapGrid}
         fitView
         fitViewOptions={fitViewOptions}
         onDragOver={onDragOver}
         onDrop={onDrop}
+        onConnect={onConnect}
       >
         <Controls position="top-left" fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
