@@ -15,7 +15,7 @@ const page = () => {
 
       <div className="h-full py-6">
         <Suspense fallback={<UserWorkflowsSkeleton />}>
-          <UserWorkflows></UserWorkflows>
+          <UserWorkflows />
         </Suspense>
       </div>
     </div>
