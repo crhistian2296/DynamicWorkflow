@@ -29,7 +29,7 @@ export const DeletableEdge = (props: EdgeProps) => {
             size={"icon"}
             className="w-5 h-5 border cursor-pointer rounded-full text-xs leading-none hover:shadow-lg"
             onClick={() => {
-              setEdges((eds) => eds.filter((edge) => edge.id === props.id));
+              setEdges((eds) => eds.filter((edge) => edge.id !== props.id));
             }}
           >
             x

@@ -2,7 +2,7 @@ import { UpdateWorkflow } from "@/actions/workflows/updateWorkflow";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { useReactFlow } from "@xyflow/react";
-import { CheckIcon, LoaderCircleIcon, SaveIcon } from "lucide-react";
+import { LoaderCircleIcon, SaveIcon } from "lucide-react";
 import { toast } from "sonner";
 
 const SaveBtn = ({ workflowId }: { workflowId: string }) => {
@@ -38,11 +38,6 @@ const SaveBtn = ({ workflowId }: { workflowId: string }) => {
         <LoaderCircleIcon
           className={`animate-spin absolute inset-0.5 h-5 w-5 transition-all duration-500 ease-in-out ${
             saveMutation.isPending ? "opacity-100" : "opacity-0"
-          }`}
-        />
-        <CheckIcon
-          className={`absolute inset-0.5 h-5 w-5 stroke-green-400 transition-opacity duration-300 ease-in-out ${
-            saveMutation.isSuccess ? "opacity-100" : "opacity-0"
           }`}
         />
       </span>
