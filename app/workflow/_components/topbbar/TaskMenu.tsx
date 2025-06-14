@@ -12,6 +12,7 @@ const TaskMenu = () => {
           <AccordionTrigger className="font-bold">Data extraction</AccordionTrigger>
           <AccordionContent className="flex flex-col gap-1 pb-3">
             <TaskMenuBtn taskType={TaskType.PAGE_TO_HTML} />
+            <TaskMenuBtn taskType={TaskType.EXTRACT_TEXT_FROM_HTML} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

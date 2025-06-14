@@ -38,15 +38,15 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgsChange] = useEdgesState<Edge>([]);
   const { x, y, zoom } = useViewport();
-  const { setViewport, screenToFlowPosition } = useReactFlow();
+  const { setViewport, screenToFlowPosition, updateNodeData } = useReactFlow();
 
   useEffect(() => {
     try {
       const flow = JSON.parse(workflow.definition);
       if (!flow) return;
 
-      setNodes(flow.nodes || []);
-      setEdges(flow.edges || []);
+      setNodes(flow.nodes ?? []);
+      setEdges(flow.edges ?? []);
 
       if (!x || !y || !zoom) return;
 
@@ -89,9 +89,22 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
     (connection: Connection) => {
       console.log("onConnect", connection);
       setEdges((eds) => addEdge({ ...connection, animated: true }, eds));
+      if (!connection.targetHandle) return;
+
+      const node = nodes.find((n) => n.id === connection.target);
+      if (!node) return;
+
+      const nodeInputs = node.data.inputs;
+      updateNodeData(
+        node.id, {
+          inputs: {...nodeInputs, [connection.targetHandle]: ''},
+        });
+        console.log("@UPDATE", node.data.inputs);
     },
-    [setEdges]
+    [setEdges, nodes, updateNodeData]
   );
+
+  console.log("@NODES", nodes);
 
   return (
     <main className="h-full w-full">

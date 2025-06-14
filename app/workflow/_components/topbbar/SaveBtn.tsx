@@ -28,7 +28,7 @@ const SaveBtn = ({ workflowId }: { workflowId: string }) => {
         saveMutation.mutate({ id: workflowId, definition: workflowDefinition });
       }}
     >
-      Save
+      <span>Save</span>
       <span className="relative overflow-hidden h-5 w-5">
         <SaveIcon
           className={`absolute inset-0.5 h-5 w-5 transition-opacity duration-300 ease-in-out ${
