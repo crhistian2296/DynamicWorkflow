@@ -1,14 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ParamProps } from "@/types/appNode";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef } from "react";
 
 const StringParam = ({ param, value, updateNodeParamValue }: ParamProps) => {
   const id = useId();
-  const [internalValue, setInternalValue] = useState(value);
+  const internalValueRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setInternalValue(value);
+    if (internalValueRef.current && value !== undefined) internalValueRef.current.value = value;
   }, [value]);
 
   return (
@@ -21,8 +21,7 @@ const StringParam = ({ param, value, updateNodeParamValue }: ParamProps) => {
         id={id}
         type="text"
         placeholder={param.description}
-        value={internalValue}
-        onChange={(e) => setInternalValue(e.target.value)}
+        ref={internalValueRef}
         onBlur={(e) => updateNodeParamValue(e.target.value)}
       />
       {param.helperText && <p className="text-muted-foreground px-2">{param.helperText}</p>}
