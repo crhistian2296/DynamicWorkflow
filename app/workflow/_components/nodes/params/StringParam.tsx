@@ -8,7 +8,7 @@ const StringParam = ({ param, value, updateNodeParamValue }: ParamProps) => {
   const internalValueRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (internalValueRef.current && value !== undefined) internalValueRef.current.value = value;
+    if (internalValueRef.current && value) internalValueRef.current.value = value;
   }, [value]);
 
   return (
@@ -23,6 +23,13 @@ const StringParam = ({ param, value, updateNodeParamValue }: ParamProps) => {
         placeholder={param.description}
         ref={internalValueRef}
         onBlur={(e) => updateNodeParamValue(e.target.value)}
+        onDoubleClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (internalValueRef.current) {
+            internalValueRef.current.select();
+          }
+        }}
       />
       {param.helperText && <p className="text-muted-foreground px-2">{param.helperText}</p>}
     </div>
