@@ -23,7 +23,6 @@ const SaveBtn = ({ workflowId }: { workflowId: string }) => {
       disabled={saveMutation.isPending}
       onClick={() => {
         const workflowDefinition = JSON.stringify(toObject());
-        console.log(workflowDefinition);
         toast.loading("Saving workflow...", { id: "save-workflow" });
         saveMutation.mutate({ id: workflowId, definition: workflowDefinition });
       }}
