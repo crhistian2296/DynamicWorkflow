@@ -174,6 +174,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         onDrop={onDrop}
         onConnect={onConnect}
         isValidConnection={isValidConnection}
+        panOnScroll
       >
         <Controls position="top-left" fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />

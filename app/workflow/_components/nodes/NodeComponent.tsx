@@ -13,7 +13,7 @@ const NodeComponent = ({ id, selected, data }: NodeProps) => {
 
   return (
     <NodeCard nodeId={id} isSelected={selected ?? false}>
-      <NodeHeader taskType={nodeData.type} />
+      <NodeHeader taskType={nodeData.type} nodeId={id} />
       <NodeInputs>
         {task.inputs.map((input) => (
           <NodeInput key={input.name} input={input} nodeId={id} />
