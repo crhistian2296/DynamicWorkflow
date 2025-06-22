@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { CreateFlowNode } from "@/lib/workflow/createFlowNode";
 import { AppNode } from "@/types/appNode";
 import { TaskType } from "@/types/task";
-import { WorkflowStatus } from "@/types/worflows";
+import { WorkflowStatus } from "@/types/workflows";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { createWorkflowSchema, createWorkflowSchemaType } from "../../schema/workflow";
