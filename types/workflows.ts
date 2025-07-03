@@ -16,7 +16,7 @@ export type WorkflowTask = {
   credits: number;
 };
 
-export type WordflowExecutionPlan = {
+export type WorkflowExecutionPlan = {
   phase: number;
   nodes: AppNode[];
-};
+}[];
