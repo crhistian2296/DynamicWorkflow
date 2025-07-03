@@ -19,7 +19,7 @@ import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { AppNode } from "@/types/appNode";
 import { TaskType } from "@/types/task";
 import "@xyflow/react/dist/style.css";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { DeletableEdge } from "./edges/DeletableEdge";
 import NodeComponent from "./nodes/NodeComponent";
 
@@ -42,7 +42,10 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
   const { x, y, zoom } = useViewport();
   const { setViewport, screenToFlowPosition, updateNodeData } = useReactFlow();
 
+  // Solo inicializar nodos/edges una vez por workflow.id
+  const initialized = useRef<string | null>(null);
   useEffect(() => {
+    if (initialized.current === workflow.id) return;
     try {
       const flow = JSON.parse(workflow.definition);
       if (!flow) return;
@@ -57,13 +60,15 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         y,
         zoom,
       });
+
+      initialized.current = workflow.id;
     } catch (error) {
       if (error instanceof Error) {
         throw new Error("Error parsing workflow definition: " + error.message);
       }
       throw new Error("Error parsing workflow definition: Unknown error");
     }
-  }, [workflow.definition, setNodes, setEdges, setViewport, x, y, zoom]);
+  }, [workflow, setNodes, setEdges, setViewport, x, y, zoom]);
 
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault();
