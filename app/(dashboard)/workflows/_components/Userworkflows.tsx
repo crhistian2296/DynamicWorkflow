@@ -9,7 +9,6 @@ import { WorkflowCard } from "./WorkflowCard";
 
 export function UserWorkflows() {
   const { data: workflows, isLoading, isError, error } = useWorkflows();
-  console.log(workflows);
 
   if (isLoading) {
     return <UserWorkflowsSkeleton />;

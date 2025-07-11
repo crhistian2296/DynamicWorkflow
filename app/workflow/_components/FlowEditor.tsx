@@ -101,14 +101,14 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
       if (!node) return;
 
       const nodeInputs = node.data.inputs;
-      // updateNodeData(node.id, {
-      //   inputs: { ...nodeInputs, [connection.targetHandle]: "" },
-      // });
-
-      delete nodeInputs[connection.targetHandle];
       updateNodeData(node.id, {
-        inputs: nodeInputs,
+        inputs: { ...nodeInputs, [connection.targetHandle]: "" },
       });
+
+      // delete nodeInputs[connection.targetHandle];
+      // updateNodeData(node.id, {
+      //   inputs: nodeInputs,
+      // });
     },
     [setEdges, nodes, updateNodeData]
   );
