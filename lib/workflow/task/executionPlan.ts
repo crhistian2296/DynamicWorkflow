@@ -3,7 +3,7 @@ import {
   WorkflowExecutionPlan,
   WorkflowExecutionPlanPhase,
 } from "@/types/workflows";
-import { Edge, getIncomers } from "@xyflow/react";
+import { Edge } from "@xyflow/react";
 import { TaskRegistry } from "./registry";
 
 export enum FlowToExecutionPlanError {
@@ -153,4 +153,15 @@ function getInvalidInputs(node: AppNode, edges: Edge[], planned: Set<string>) {
     invalidInputs.push(input.name);
   }
   return invalidInputs;
+}
+
+function getIncomers(node: AppNode, nodes: AppNode[], edges: Edge[]) {
+  if (!node) return [];
+  const incomers = new Set();
+  for (const edge of edges) {
+    if (edge.target === node.id) {
+      incomers.add(edge.source);
+    }
+  }
+  return nodes.filter((n) => incomers.has(n.id));
 }
