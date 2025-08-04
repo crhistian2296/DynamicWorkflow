@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { FlowToExecutionPlan } from "@/lib/workflow/task/executionPlan";
+import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { WorkflowExecutionPlan } from "@/types/workflows";
 import { auth } from "@clerk/nextjs/server";
 
@@ -31,5 +32,31 @@ export const RunWorkflow = async (form: {
     throw new Error("Execution plan could not be generated");
 
   executionPlan = result.executionPlan;
-  console.log("Execution plan generated:", executionPlan);
+  const execution = await prisma.workflowExecution.create({
+    data: {
+      workflowId,
+      userId,
+      trigger: "manual",
+      status: "PENDING",
+      startedAt: new Date(),
+      phases: {
+        create: executionPlan.flatMap((phase) => {
+          return phase.nodes.flatMap((node) => {
+            return {
+              userId,
+              status: "CREATED",
+              number: phase.phase,
+              node: JSON.stringify(node),
+              name: TaskRegistry[node.data.type]?.label,
+            };
+          });
+        }),
+      },
+    },
+    select: {
+      id: true,
+      phases: true,
+    },
+  });
+  if (!execution) throw new Error("Execution could not be created");
 };
