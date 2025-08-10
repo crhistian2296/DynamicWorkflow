@@ -1,6 +1,9 @@
+import { GetWorkflowExecutionWithPhases } from "@/actions/workflows/getWorkflowExecutionWithPhases";
 import Topbar from "@/app/workflow/_components/topbbar/Topbar";
+import { auth } from "@clerk/nextjs/server";
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
+import ExecutionViewer from "./_components/ExecutionViewer";
 
 const ExecutinViewerPage = ({
   params,
@@ -19,7 +22,7 @@ const ExecutinViewerPage = ({
         subtitle={`Execution ID: ${executionId}`}
         hideButtons
       />
-      <section className="flex h-rfull overflow-auto">
+      <section className="flex h-full overflow-auto">
         <Suspense
           fallback={
             <div>
@@ -39,6 +42,11 @@ const ExecutionViewerWrapper = async ({
 }: {
   executionId: string;
 }) => {
-  return <div>Wrapper</div>;
+  const { userId } = auth();
+  if (!userId) return <div>Please log in to view this page.</div>;
+
+  const workflowExecution = await GetWorkflowExecutionWithPhases(executionId);
+  if (!workflowExecution) return <div>Workflow execution not found.</div>;
+  return <ExecutionViewer initialData={workflowExecution} />;
 };
 export default ExecutinViewerPage;
