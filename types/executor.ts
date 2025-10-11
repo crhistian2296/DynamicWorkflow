@@ -1,12 +1,17 @@
 import { Browser } from "puppeteer";
+import { WorkflowTask } from "./workflows";
 
-export type Enviroment = {
+export type Environment = {
   browser?: Browser;
-  // Phases with phaseId as key
+  // Phases with nodeId as key
   phases: {
     [key: string]: {
       inputs: Record<string, string>;
       outputs: Record<string, string>;
     };
   };
+};
+
+export type ExecutionEnvironment<T extends WorkflowTask> = {
+  getInput(name: T["inputs"][number]["name"]): string;
 };

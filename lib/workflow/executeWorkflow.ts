@@ -1,5 +1,5 @@
 import { AppNode } from "@/types/appNode";
-import { Enviroment } from "@/types/executor";
+import { Environment, ExecutionEnvironment } from "@/types/executor";
 import { WorkflowExecutionStatus } from "@/types/workflows";
 import { ExecutionPhase, Workflow, WorkflowExecution } from "@prisma/client";
 import { revalidatePath } from "next/cache";
@@ -18,7 +18,7 @@ export async function ExecuteWorkflow(executionId: string) {
   if (!execution) throw new Error("Execution not found");
 
   // TODO: setup execution environment
-  const enviroment: Enviroment = {
+  const environment: Environment = {
     phases: {},
   };
 
@@ -31,7 +31,7 @@ export async function ExecuteWorkflow(executionId: string) {
   let executionFailed = false;
   for (const phase of execution.phases) {
     // TODO: execute each phase
-    const phaseExecution = await executeWorkflowPhase(phase, enviroment);
+    const phaseExecution = await executeWorkflowPhase(phase, environment);
     if (!phaseExecution.success) {
       executionFailed = true;
       break;
@@ -131,10 +131,11 @@ async function finalizeWorkflowExecution(
 
 async function executeWorkflowPhase(
   phase: ExecutionPhase,
-  enviroment?: Enviroment
+  environment: Environment
 ) {
   const startedAt = new Date();
   const node = JSON.parse(phase.node) as AppNode;
+  setUpEnvironment(node, environment);
 
   await prisma.executionPhase.update({
     where: { id: phase.id },
@@ -149,7 +150,11 @@ async function executeWorkflowPhase(
     `Executing phase ${phase.id} - Task: ${node.data.type} with ${creditsRequired} credits required`
   );
 
-  const success = await executePhase(phase, node, enviroment || { phases: {} });
+  const success = await executePhase(
+    phase,
+    node,
+    environment || { phases: {} }
+  );
   await finalizePhase(phase.id, success);
   return { success };
 }
@@ -170,12 +175,37 @@ async function finalizePhase(phaseId: string, success: boolean) {
 async function executePhase(
   phase: ExecutionPhase,
   node: AppNode,
-  enviroment: Enviroment
+  environment: Environment
 ): Promise<boolean> {
   const runFn =
     ExecutorRegistry[node.data.type as keyof typeof ExecutorRegistry];
   if (!runFn) {
     return false;
   }
-  return await runFn(enviroment);
+  const executionEnvironment: ExecutionEnvironment<any> =
+    createExecutionEnvironment(node, environment);
+
+  return await runFn(executionEnvironment);
+}
+
+function setUpEnvironment(node: AppNode, environment: Environment) {
+  environment.phases[node.id] = { inputs: {}, outputs: {} };
+  const inputs = TaskRegistry[node.data.type].inputs;
+  for (const input of inputs) {
+    const inputValue = node.data.inputs[input.name];
+    if (inputValue) {
+      environment.phases[node.id].inputs[input.name] = inputValue;
+      continue;
+    }
+    // If input is not found in node inputs, check if it's connected to another node
+  }
+}
+
+function createExecutionEnvironment(
+  node: AppNode,
+  environment: Environment
+): ExecutionEnvironment<any> {
+  return {
+    getInput: (name: string) => environment.phases[node.id]?.inputs[name] || "",
+  };
 }
