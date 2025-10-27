@@ -1,13 +1,19 @@
+import { ExecutionEnvironment } from "@/types/executor";
+import { TaskType } from "@/types/task";
+import { WorkflowTask } from "@/types/workflows";
 import { LaunchBrowserExecutor } from "./LaunchBrowserExecutor";
+import { PageToHtmlExecutor } from "./PageToHtmlExecutor";
 
-// type ExecutorFn = (environment: ExecutionEnvironment<T>) => Promise<boolean>;
+type ExecutorFn<T extends WorkflowTask> = (
+  environment: ExecutionEnvironment<T>
+) => Promise<boolean>;
 
-// type RegistryType = {
-//   [k in TaskType]: ExecutorFn;
-// };
+type RegistryType = {
+  [k in TaskType]: ExecutorFn<WorkflowTask & { type: k }>;
+};
 
-export const ExecutorRegistry = {
+export const ExecutorRegistry: RegistryType = {
   LAUNCH_BROWSER: LaunchBrowserExecutor,
-  PAGE_TO_HTML: () => Promise.resolve(true),
+  PAGE_TO_HTML: PageToHtmlExecutor,
   EXTRACT_CONTENT: () => Promise.resolve(true),
 };

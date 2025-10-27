@@ -17,12 +17,12 @@ export const LaunchBrowserTask = {
       helperText: "The url of the website to scrape",
       required: true,
       hideHandle: true,
-    } as const,
-  ],
+    },
+  ] as const,
   outputs: [
     {
       name: "Web page",
       type: TaskParamType.BROWSER_INSTANCE,
     },
-  ],
+  ] as const,
 } satisfies WorkflowTask;
