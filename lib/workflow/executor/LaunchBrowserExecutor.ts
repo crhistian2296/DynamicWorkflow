@@ -7,7 +7,7 @@ export const LaunchBrowserExecutor = async (
 ): Promise<boolean> => {
   try {
     const websiteUrl = environment.getInput("Website url");
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true });
     environment.setBrowser(browser);
     const page = await browser.newPage();
     await page.goto(websiteUrl);

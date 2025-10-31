@@ -122,7 +122,6 @@ function getInvalidInputs(node: AppNode, edges: Edge[], planned: Set<string>) {
         `Input "${input.name}" is not defined in node ${node.id}`
       );
     const inputValue = node.data?.inputs[input.name];
-    // console.log("input", inputValue, input.name);
     const inputValueProvided = inputValue?.length > 0;
     if (inputValueProvided) continue; // Input is provided, no issue
 
