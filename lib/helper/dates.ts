@@ -1,6 +1,6 @@
 import { intervalToDuration } from "date-fns";
 
-export const DatesDatesToDurationString = (
+export const DatesToDurationString = (
   start: Date | null | undefined,
   end: Date | null | undefined
 ) => {
