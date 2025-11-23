@@ -123,7 +123,8 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         // Same task type connections
         const source = nodes.find((n) => n.id === connection.source);
         const target = nodes.find((n) => n.id === connection.target);
-        if (!source || !target) throw new Error("Source or target node not found");
+        if (!source || !target)
+          throw new Error("Source or target node not found");
         const souceTaskType = TaskRegistry[source.data.type];
         const targetTaskType = TaskRegistry[target.data.type];
 
@@ -152,14 +153,17 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         };
 
         if (hasCycle(target))
-          throw new Error(`Cycle detected from ${target.data.type} to ${source.data.type}`);
+          throw new Error(
+            `Cycle detected from ${target.data.type} to ${source.data.type}`
+          );
         return true;
       } catch (error) {
-        if (error instanceof Error) console.error("Invalid connection error:", error.message);
+        if (error instanceof Error)
+          console.error("Invalid connection error:", error.message);
         return false;
       }
     },
-    [nodes]
+    [nodes, edges]
   );
 
   return (

@@ -204,6 +204,9 @@ async function executePhase(
   if (!runFn) {
     return false;
   }
+
+  // await waitFor(1000); // Simulate some delay
+
   const executionEnvironment: ExecutionEnvironment<any> =
     createExecutionEnvironment(node, environment, logCollector);
 
