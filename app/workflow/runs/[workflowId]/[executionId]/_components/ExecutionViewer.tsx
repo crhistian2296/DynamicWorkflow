@@ -41,7 +41,7 @@ import {
   LucideIcon,
   WorkflowIcon,
 } from "lucide-react";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import PhaseStatusBadge from "./PhaseStatusBadge";
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>;
@@ -57,19 +57,27 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
       q.state.data?.status === WorkflowExecutionStatus.RUNNING ? 1000 : false,
   });
 
+  const executionData = useMemo(() => query.data, [query.data]);
+
   const phaseDetails = useQuery({
     queryKey: ["phaseDetails", selectedPhase],
     enabled: selectedPhase !== null,
     queryFn: () => GetWorkflowPhaseDetails(selectedPhase!),
   });
 
-  const isRunning = query.data?.status === WorkflowExecutionStatus.RUNNING;
-  const isFailed = query.data?.status === WorkflowExecutionStatus.FAILED;
-  const isCompleted = query.data?.status === WorkflowExecutionStatus.COMPLETED;
+  const isRunning = useMemo(
+    () => executionData?.status === WorkflowExecutionStatus.RUNNING,
+    [executionData?.status]
+  );
+  const phases = useMemo(
+    () => executionData?.phases || [],
+    [executionData?.phases]
+  );
+  // const isFailed = query.data?.status === WorkflowExecutionStatus.FAILED;
+  // const isCompleted = query.data?.status === WorkflowExecutionStatus.COMPLETED;
 
   useEffect(() => {
     // While running we auto select the latest phase
-    const phases = query.data?.phases || [];
     let orderedPhases = phases.toSorted((a, b) =>
       a.startedAt! > b.startedAt! ? -1 : 1
     );
@@ -88,14 +96,14 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
     );
 
     setSelectedPhase(orderedPhases[0]?.id);
-  }, [isRunning, isFailed, isCompleted, query]);
+  }, [isRunning, phases]);
 
   const duration = DatesToDurationString(
-    query.data?.startedAt,
-    query.data?.completedAt
+    executionData?.startedAt,
+    executionData?.completedAt
   );
 
-  const creditsConsumed = GetPhasesTotalCost(query.data?.phases || []);
+  const creditsConsumed = GetPhasesTotalCost(executionData?.phases || []);
 
   return (
     <div className="flex w-full h-full">
@@ -107,7 +115,7 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
             label="Status"
             value={
               <span className="capitalize">
-                {query.data?.status || "Unknown"}
+                {executionData?.status || "Unknown"}
               </span>
             }
           />
@@ -116,8 +124,8 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
             icon={CalendarIcon}
             label="Started at"
             value={
-              query.data?.startedAt
-                ? formatDistanceToNow(new Date(query.data.startedAt), {
+              executionData?.startedAt
+                ? formatDistanceToNow(new Date(executionData.startedAt), {
                     addSuffix: true,
                   })
                 : "-"
@@ -150,7 +158,7 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
           </div>
           <Separator />
           <div className="px-2 py-1 flex flex-col gap-1">
-            {query.data?.phases.map((phase, index) => (
+            {executionData?.phases.map((phase, index) => (
               <Button
                 variant={selectedPhase === phase.id ? "secondary" : "ghost"}
                 key={phase.id}
