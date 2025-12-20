@@ -1,5 +1,4 @@
 "use client";
-
 import { GetAvailableCredits } from "@/actions/billing/getAvailableCredits";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -30,10 +29,13 @@ const UserAvailableCreditsBadge = () => {
         {query.isLoading && (
           <Loader2 className="inline-block ml-2 h-4 w-4 animate-spin" />
         )}
+        {/* Error */}
+        {!query.isLoading && query.data === undefined && "-"}
+        {/* Credits available */}
         {!query.isLoading && query.data && (
           <ReactCountUpWrapper value={query.data} />
         )}
-        {!query.isLoading && query.data === -1 && "0"} Credits
+        {!query.isLoading && query.data && <span> Credits</span>}
       </span>
     </Link>
   );

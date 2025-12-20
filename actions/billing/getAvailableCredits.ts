@@ -15,7 +15,7 @@ export async function GetAvailableCredits() {
   });
 
   if (!userBalance) {
-    return -1; // Default credits for new users
+    return undefined; // Default credits for new users
   }
 
   return userBalance.credits;

@@ -2,6 +2,7 @@
 
 import { GetWorkflowExecutionWithPhases } from "@/actions/workflows/getWorkflowExecutionWithPhases";
 import { GetWorkflowPhaseDetails } from "@/actions/workflows/getWorkflowPhaseDetails";
+import ReactCountUpWrapper from "@/components/ReactCountUpWrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -147,7 +148,7 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
           <ExecutionLabel
             icon={CoinsIcon}
             label="Credist consumed"
-            value={creditsConsumed}
+            value={<ReactCountUpWrapper value={creditsConsumed} />}
           />
           <Separator />
           <div className="flex justify-center items-center py-2 px-2 text-sm">
@@ -211,7 +212,7 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
                 <div className="flex gap-1 items-center">
                   <CoinsIcon size={18} className="stroke-muted-foreground" />
                   <span>Credits</span>
-                  <span>TODO</span>
+                  <span>{phaseDetails.data.creditsConsumed}</span>
                 </div>
               </Badge>
               <Badge variant={"outline"} className="space-x-4">
