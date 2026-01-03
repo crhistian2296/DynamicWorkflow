@@ -29,7 +29,7 @@ const Topbar = ({
           <Button
             variant={"outline"}
             size={"icon"}
-            onClick={() => router.back()}
+            onClick={() => router.push("/workflows")}
           >
             <ChevronLeftIcon size={20} />
           </Button>
