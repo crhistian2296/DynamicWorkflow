@@ -20,7 +20,9 @@ export function UserWorkflows() {
         <AlertCircle className="w-4 h-4 mr-2" />
         <AlertTitle>Error loading workflows</AlertTitle>
         <AlertDescription>
-          {error instanceof Error ? error.message : "An error occurred while fetching workflows"}
+          {error instanceof Error
+            ? error.message
+            : "An error occurred while fetching workflows"}
         </AlertDescription>
       </Alert>
     );
@@ -45,7 +47,7 @@ export function UserWorkflows() {
 
   return (
     <div className="space-y">
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         {workflows.map((workflow) => (
           <WorkflowCard key={workflow.id} workflow={workflow} />
         ))}
@@ -55,11 +57,11 @@ export function UserWorkflows() {
 }
 
 export const UserWorkflowsSkeleton = () => {
-  const arr = [1, 2, 3, 4, 5];
+  const arr = [1, 2, 3, 4];
   return (
-    <div className="space-y-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
       {arr.map((i) => (
-        <Skeleton key={i} className="h-32 w-full" />
+        <Skeleton key={i} className="h-36 lg:h-48 w-full" />
       ))}
     </div>
   );

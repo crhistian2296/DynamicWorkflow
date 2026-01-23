@@ -1,6 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { WorkflowStatus } from "@/types/workflows";
 import { Workflow } from "@prisma/client";
 import { formatDistanceToNow } from "date-fns";
@@ -17,7 +23,7 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
 
   const statusColors = {
     [WorkflowStatus.DRAFT]: "bg-amber-100 text-amber-800",
-    [WorkflowStatus.PUBLISHED]: "bg-primary",
+    [WorkflowStatus.PUBLISHED]: "bg-primary text-white",
     // Fallback for any other status that might be in the database
     default: "bg-gray-100 text-gray-800",
   };
@@ -27,12 +33,13 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
   const isUpdated = createdDate.getTime() !== updatedDate.getTime();
 
   // Get the appropriate color class based on status, with fallback
-  const statusColorClass = statusColors[status as WorkflowStatus] || statusColors.default;
+  const statusColorClass =
+    statusColors[status as WorkflowStatus] || statusColors.default;
 
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md">
       <CardHeader className="pb-2">
-        <div className="flex justify-between items-start">
+        <div className="flex justify-start items-center gap-2">
           <CardTitle className="text-lg font-semibold">
             <Link
               href={`/workflow/editor/${id}`}
@@ -56,12 +63,16 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
         <div className="flex flex-col items-start text-sm text-gray-500">
           <div className="flex items-center">
             <CalendarIcon className="mr-1 h-3 w-3" />
-            <span>Created {formatDistanceToNow(createdDate, { addSuffix: true })}</span>
+            <span>
+              Created {formatDistanceToNow(createdDate, { addSuffix: true })}
+            </span>
           </div>
           {isUpdated && (
             <div className="flex items-center ml-0">
               <SettingsIcon className="mr-1 h-3 w-3" />
-              <span>Updated {formatDistanceToNow(updatedDate, { addSuffix: true })}</span>
+              <span>
+                Updated {formatDistanceToNow(updatedDate, { addSuffix: true })}
+              </span>
             </div>
           )}
         </div>

@@ -10,7 +10,13 @@ const Logo = ({
   iconSize?: number;
 }) => {
   return (
-    <Link href="/" className={cn("text-2xl font-extrabold flex items-center gap-2", fontsize)}>
+    <Link
+      href="/"
+      className={cn(
+        "text-2xl max-w-xs font-extrabold flex items-center gap-2",
+        fontsize
+      )}
+    >
       <div className="rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 p-2">
         <SquareDashedMousePointer size={iconSize} className="stroke-white" />
       </div>

@@ -115,9 +115,12 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
             icon={CircleDashedIcon}
             label="Status"
             value={
-              <span className="capitalize">
-                {executionData?.status || "Unknown"}
-              </span>
+              <div className="flex items-center gap-2">
+                <PhaseStatusBadge
+                  status={executionData?.status as ExecutionPhaseStatus}
+                />
+                <span>{executionData?.status}</span>
+              </div>
             }
           />
           {/* Started at label */}

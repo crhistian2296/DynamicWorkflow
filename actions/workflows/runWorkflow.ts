@@ -9,6 +9,7 @@ import {
   WorkflowExecutionPlan,
   WorkflowExecutionStatus,
   WorkflowExecutionTrigger,
+  WorkflowStatus,
 } from "@/types/workflows";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -22,23 +23,30 @@ export const RunWorkflow = async (form: {
   const { workflowId, flowDefinition } = form;
   if (!workflowId) throw new Error("Workflow ID is required");
 
-  const worflow = prisma.workflow.findUnique({
+  const workflow = await prisma.workflow.findUnique({
     where: { id: workflowId, userId },
   });
 
   let executionPlan: WorkflowExecutionPlan;
 
-  if (!worflow) throw new Error("Workflow not found");
-  if (!flowDefinition) throw new Error("Flow definition is required");
+  if (!workflow) throw new Error("Workflow not found");
+  if (workflow.status === WorkflowStatus.PUBLISHED) {
+    if (!workflow.executionPlan) throw new Error("Workflow is not published");
 
-  const flow = JSON.parse(flowDefinition);
-  const result = FlowToExecutionPlan(flow.nodes, flow.edges);
+    executionPlan = JSON.parse(workflow.executionPlan);
+  } else {
+    if (!flowDefinition) throw new Error("Flow definition is required");
 
-  if (result.error) throw new Error("Flow validation failed: " + result.error);
-  if (!result.executionPlan)
-    throw new Error("Execution plan could not be generated");
+    const flow = JSON.parse(flowDefinition);
+    const result = FlowToExecutionPlan(flow.nodes, flow.edges);
 
-  executionPlan = result.executionPlan;
+    if (result.error)
+      throw new Error("Flow validation failed: " + result.error);
+    if (!result.executionPlan)
+      throw new Error("Execution plan could not be generated");
+
+    executionPlan = result.executionPlan;
+  }
   const execution = await prisma.workflowExecution.create({
     data: {
       workflowId,
