@@ -13,7 +13,7 @@ const Logo = ({
     <Link
       href="/"
       className={cn(
-        "text-2xl max-w-xs font-extrabold flex items-center gap-2",
+        "text-2xl max-w-[260px] font-extrabold flex items-center gap-2",
         fontsize
       )}
     >

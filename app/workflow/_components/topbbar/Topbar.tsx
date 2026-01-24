@@ -7,6 +7,7 @@ import ExecuteBtn from "./ExecuteBtn";
 import NavigationTabs from "./NavigationTabs";
 import PublishBtn from "./PublishBtn";
 import SaveBtn from "./SaveBtn";
+import UnpublishBtn from "./UnpublishBtn";
 
 interface TopbarProps {
   title: string;
@@ -51,6 +52,7 @@ const Topbar = ({
         {!hideButtons && (
           <>
             <ExecuteBtn workflowId={workflowId} />
+            {isPublished && <UnpublishBtn workflowId={workflowId} />}
             {!isPublished && (
               <>
                 <SaveBtn workflowId={workflowId} />
