@@ -1,5 +1,5 @@
+import { RunBtn } from "@/app/workflow/_components/RunBtn";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -20,6 +20,7 @@ interface WorkflowCardProps {
 
 export function WorkflowCard({ workflow }: WorkflowCardProps) {
   const { id, name, description, status, createdAt, updatedAt } = workflow;
+  const isDraft = status === WorkflowStatus.DRAFT;
 
   const statusColors = {
     [WorkflowStatus.DRAFT]: "bg-amber-100 text-amber-800",
@@ -43,7 +44,7 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
           <CardTitle className="text-lg font-semibold">
             <Link
               href={`/workflow/editor/${id}`}
-              className="hover:underline transition-all duration-300"
+              className="underline decoration-transparent hover:decoration-current transition-all duration-300"
             >
               {name}
             </Link>
@@ -51,6 +52,7 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
           <Badge className={`${statusColorClass} hover:bg-opacity-60`}>
             {status.charAt(0) + status.slice(1).toLowerCase()}
           </Badge>
+          {!isDraft && <RunBtn workflowId={id} />}
         </div>
         {description && (
           <CardDescription className="text-sm text-gray-500 line-clamp-2">
@@ -77,12 +79,12 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
           )}
         </div>
         <div className="flex items-center">
-          <Button variant="outline" size="sm" asChild>
+          {/* <Button variant="outline" size="sm" asChild>
             <Link href={`/workflow/editor/${id}`}>
               <SettingsIcon className="mr-1 h-3 w-3" />
               Edit
             </Link>
-          </Button>
+          </Button> */}
           <WorkflowActions workflow={workflow} />
         </div>
       </CardContent>
