@@ -31,7 +31,11 @@ export function WorkflowActions({ workflow }: WorkflowActionsProps) {
       />
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm" className="ml-1 p-0">
+          <Button
+            variant="outline"
+            size="sm"
+            className="ml-1 w-[36px] h-[36px] p-0"
+          >
             <TooltipWrapper text="More actions" delayDuration={0}>
               <div className="flex items-center justify-center w-full h-full p-2">
                 <MoreVerticalIcon size={16} />

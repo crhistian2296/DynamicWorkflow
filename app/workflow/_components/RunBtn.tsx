@@ -21,7 +21,7 @@ export const RunBtn = ({ workflowId }: { workflowId: string }) => {
   return (
     <Button
       variant={"link"}
-      className="flex w-[36px] h-[36px] ml-auto rounded-md bg-muted-50 hover:bg-muted/100 border"
+      className="flex w-[36px] h-[36px] rounded-md bg-muted-50 hover:bg-muted/100 border"
       onClick={() => {
         toast.loading("Starting workflow execution...", { id: workflowId });
         mutation.mutate({ workflowId });
