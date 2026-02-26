@@ -27,8 +27,16 @@ interface WorkflowCardProps {
 }
 
 export function WorkflowCard({ workflow }: WorkflowCardProps) {
-  const { id, name, creditsCost, description, status, createdAt, updatedAt } =
-    workflow;
+  const {
+    id,
+    name,
+    cron,
+    creditsCost,
+    description,
+    status,
+    createdAt,
+    updatedAt,
+  } = workflow;
   const isDraft = status === WorkflowStatus.DRAFT;
 
   const statusColors = {
@@ -47,8 +55,8 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
     statusColors[status as WorkflowStatus] || statusColors.default;
 
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-md">
-      <CardHeader className="pb-2">
+    <Card className="overflow-hidden transition-all hover:shadow-md ">
+      <CardHeader className="sm:p-4 sm:pb-2 p-2 pb-2">
         <div className="flex justify-start items-center gap-2">
           <CardTitle className="text-lg font-semibold">
             <Link
@@ -73,8 +81,13 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
         )}
       </CardHeader>
 
-      <CardContent className="flex xl:flex-row xl:items-center xl:gap-0 gap-1 flex-col items-start justify-between">
-        <ScheduleSection isDraft={isDraft} creditsCost={creditsCost} />
+      <CardContent className="flex xl:items-start sm:p-4 p-2 sm:pt-0 pt-0 gap-1 flex-col items-start justify-between">
+        <ScheduleSection
+          isDraft={isDraft}
+          workflowId={id}
+          creditsCost={creditsCost}
+          workflowCron={cron}
+        />
         <div className="flex flex-col items-start text-sm text-gray-500">
           <div className="flex items-center">
             <CalendarIcon className="mr-1 h-3 w-3" />
@@ -98,16 +111,20 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
 
 const ScheduleSection = ({
   isDraft,
+  workflowId,
   creditsCost,
+  workflowCron = "",
 }: {
   isDraft: boolean;
+  workflowId: string;
   creditsCost: number;
+  workflowCron: string | null;
 }) => {
   if (isDraft) return null;
   return (
     <div className="flex items-center gap-1">
       <CornerDownRightIcon className="mr-1 h-4 w-4 text-muted-foreground" />
-      <SchedulerDialog />
+      <SchedulerDialog workflowId={workflowId} cronValue={workflowCron} />
       <MoveRightIcon className="mr-1 h-4 w-4 text-muted-foreground" />
       <TooltipWrapper text="Credit consumption for full run:">
         <div className="flex items-center gap-1">
