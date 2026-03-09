@@ -1,5 +1,6 @@
 "use client";
 
+import { removeWorkflowSchedule } from "@/actions/workflows/removeWorkflowSchedule";
 import { UpdateWorkflowCron } from "@/actions/workflows/updateWorkflowCron";
 import CustomDialogHeader from "@/components/CustomDialogHeader";
 import { Button } from "@/components/ui/button";
@@ -44,6 +45,18 @@ function SchedulerDialog({
     },
     onError: () => {
       toast.error("Error updating scheduler", { id: "update-scheduler" });
+    },
+  });
+
+  const removeScheduleMutation = useMutation({
+    mutationFn: removeWorkflowSchedule,
+    onSuccess: () => {
+      toast.success("scheduler removed successfully", {
+        id: "remove-scheduler",
+      });
+    },
+    onError: () => {
+      toast.error("Error removing scheduler", { id: "remove-scheduler" });
     },
   });
 
@@ -116,10 +129,37 @@ function SchedulerDialog({
               ? "Please enter a valid cron expression."
               : readableCron}
           </div>
+          {true && (
+            <DialogClose asChild>
+              <div>
+                <Button
+                  className="w-full text-destructive border-destructive hover:text-destructive"
+                  variant={"outline"}
+                  disabled={
+                    mutation.isPending || removeScheduleMutation.isPending
+                  }
+                  onClick={() => {
+                    toast.loading("Removing scheduler...", {
+                      id: "remove-scheduler",
+                    });
+                    removeScheduleMutation.mutate(workflowId);
+                    setCron("");
+                  }}
+                >
+                  Remove Schedule
+                </Button>
+              </div>
+            </DialogClose>
+          )}
         </div>
         <DialogFooter className={cn("w-full xs:gap-0 gap-2 px-6")}>
           <DialogClose asChild>
-            <Button className="w-full" variant={"secondary"} type="button">
+            <Button
+              className="w-full"
+              variant={"secondary"}
+              type="button"
+              onClick={() => setCron(cronValue ?? "")}
+            >
               Cancel
             </Button>
           </DialogClose>
