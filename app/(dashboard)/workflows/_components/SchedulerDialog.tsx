@@ -87,7 +87,7 @@ function SchedulerDialog({
           <div className="flex items-center gap-1 text-xs">
             {!validCron && (
               <>
-                <TriangleAlertIcon className="h-4 w-4 mr-1" /> Set schedule
+                <TriangleAlertIcon className="h-4 w-4" /> Set schedule
               </>
             )}
             {validCron && (
