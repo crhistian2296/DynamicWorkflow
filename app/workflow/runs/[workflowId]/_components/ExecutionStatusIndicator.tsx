@@ -8,6 +8,13 @@ const indicatorColors: Record<WorkflowExecutionStatus, string> = {
   [WorkflowExecutionStatus.FAILED]: "bg-red-600",
 };
 
+export const textIndicatorColors: Record<WorkflowExecutionStatus, string> = {
+  [WorkflowExecutionStatus.PENDING]: "text-slate-400",
+  [WorkflowExecutionStatus.RUNNING]: "text-yellow-400",
+  [WorkflowExecutionStatus.COMPLETED]: "text-emerald-400",
+  [WorkflowExecutionStatus.FAILED]: "text-red-600",
+};
+
 const ExecutionStatusIndicator = ({
   status,
 }: {

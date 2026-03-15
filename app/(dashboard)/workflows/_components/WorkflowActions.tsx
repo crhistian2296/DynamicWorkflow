@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Workflow } from "@prisma/client";
-import { MoreVerticalIcon, Trash2Icon } from "lucide-react";
+import { CopyIcon, MoreVerticalIcon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import DeleteWorkflowDialog from "./DeleteWorkflowDialog";
 
@@ -50,6 +50,10 @@ export function WorkflowActions({ workflow }: WorkflowActionsProps) {
           >
             <Trash2Icon className="mr-2 h-4 w-4" />
             Delete
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" onSelect={() => {}}>
+            <CopyIcon className="mr-2 h-4 w-4" />
+            Duplicate
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

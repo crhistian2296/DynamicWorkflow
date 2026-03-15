@@ -1,5 +1,7 @@
 import { RunBtn } from "@/app/workflow/_components/RunBtn";
-import ExecutionStatusIndicator from "@/app/workflow/runs/[workflowId]/_components/ExecutionStatusIndicator";
+import ExecutionStatusIndicator, {
+  textIndicatorColors,
+} from "@/app/workflow/runs/[workflowId]/_components/ExecutionStatusIndicator";
 import TooltipWrapper from "@/components/TooltipWrapper";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -9,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { WorkflowExecutionStatus, WorkflowStatus } from "@/types/workflows";
 import { Workflow } from "@prisma/client";
 import { format, formatDistanceToNow } from "date-fns";
@@ -60,6 +63,9 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md ">
       <CardHeader className="sm:p-4 sm:pb-2 p-2 pb-2">
+        <Badge className={`${statusColorClass} hover:bg-opacity-60 w-fit`}>
+          {status.charAt(0) + status.slice(1).toLowerCase()}
+        </Badge>
         <div className="flex justify-start items-center gap-2">
           <CardTitle className="text-lg font-semibold">
             <Link
@@ -69,9 +75,6 @@ export function WorkflowCard({ workflow }: WorkflowCardProps) {
               {name}
             </Link>
           </CardTitle>
-          <Badge className={`${statusColorClass} hover:bg-opacity-60`}>
-            {status.charAt(0) + status.slice(1).toLowerCase()}
-          </Badge>
           <div className="ml-auto self-end flex gap-1">
             {!isDraft && <RunBtn workflowId={id} />}
             <WorkflowActions workflow={workflow} />
@@ -159,7 +162,12 @@ const LastRunDetails = ({ workflow }: { workflow: Workflow }) => {
             <ExecutionStatusIndicator
               status={lastRunStatus as WorkflowExecutionStatus}
             />
-            <span className="capitalize">
+            <span
+              className={cn(
+                "capitalize",
+                textIndicatorColors[lastRunStatus as WorkflowExecutionStatus],
+              )}
+            >
               {lastRunStatus?.toLocaleLowerCase()}
             </span>
             <span>
