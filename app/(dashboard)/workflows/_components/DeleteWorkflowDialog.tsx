@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { Input } from "@/components/ui/input";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -24,16 +24,26 @@ interface Props {
   workflowId: string;
 }
 
-const DeleteWorkflowDialog = ({ open, setOpen, workflowName, workflowId }: Props) => {
+const DeleteWorkflowDialog = ({
+  open,
+  setOpen,
+  workflowName,
+  workflowId,
+}: Props) => {
+  const queryClient = useQueryClient();
   const [confirmText, setConfirmText] = useState("");
   const deleteMutation = useMutation({
     mutationFn: DeleteWorkflow,
     onSuccess: () => {
       toast.success("Workflow deleted successfully", { id: workflowId });
+      queryClient.invalidateQueries({ queryKey: ["workflows"] });
       setConfirmText("");
     },
     onError: () => {
       toast.error("Something went wrong", { id: workflowId });
+    },
+    onSettled: () => {
+      setOpen(false);
     },
   });
 
@@ -44,7 +54,8 @@ const DeleteWorkflowDialog = ({ open, setOpen, workflowName, workflowId }: Props
           <AlertDialogTitle>Delete workflow</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogDescription>
-          If you delete this workflow, it will be permanently deleted. This action cannot be undone.
+          If you delete this workflow, it will be permanently deleted. This
+          action cannot be undone.
           <div className="flex flex-col py-4 gap-2">
             <p>
               If you are sure, enter <b>{workflowName}</b> to confirm.
@@ -57,7 +68,9 @@ const DeleteWorkflowDialog = ({ open, setOpen, workflowName, workflowId }: Props
           </div>
         </AlertDialogDescription>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => setConfirmText("")}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={() => setConfirmText("")}>
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             disabled={confirmText !== workflowName || deleteMutation.isPending}
             className="bg-destructive hover:bg-red-700"

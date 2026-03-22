@@ -4,6 +4,7 @@ import {
   WorkflowExecutionPlanPhase,
 } from "@/types/workflows";
 import { Edge } from "@xyflow/react";
+import { toast } from "sonner";
 import { TaskRegistry } from "./registry";
 
 export enum FlowToExecutionPlanError {
@@ -22,10 +23,10 @@ type FlowToExecutionPlan = {
 
 export function FlowToExecutionPlan(
   nodes: AppNode[],
-  edges: Edge[]
+  edges: Edge[],
 ): FlowToExecutionPlan {
   const entryPoint = nodes.find(
-    (node) => TaskRegistry[node.data.type]?.isEntryPoint
+    (node) => TaskRegistry[node.data.type]?.isEntryPoint,
   );
   if (!entryPoint)
     return {
@@ -77,7 +78,7 @@ export function FlowToExecutionPlan(
           // this means that this particular node has invalid inputs
           // which means that the workflow is not valid
           console.error(
-            `Node ${currentNode.id} has invalid inputs: ${invalidInputs}`
+            `Node ${currentNode.id} has invalid inputs: ${invalidInputs}`,
           );
           inputsWithErrors.push({
             nodeId: currentNode.id,
@@ -117,10 +118,12 @@ function getInvalidInputs(node: AppNode, edges: Edge[], planned: Set<string>) {
   const inputs = TaskRegistry[node.data.type]?.inputs;
 
   for (const input of inputs) {
-    if (node.data.inputs[input.name] === undefined)
-      throw new Error(
-        `Input "${input.name}" is not defined in node ${node.id}`
-      );
+    if (node.data.inputs[input.name] === undefined) {
+      toast.error(`Input "${input.name}" is not defined in node ${node.id}`);
+      // throw new Error(
+      //   `Input "${input.name}" is not defined in node ${node.id}`,
+      // );
+    }
     const inputValue = node.data?.inputs[input.name];
     const inputValueProvided = inputValue?.length > 0;
     if (inputValueProvided) continue; // Input is provided, no issue
@@ -128,7 +131,7 @@ function getInvalidInputs(node: AppNode, edges: Edge[], planned: Set<string>) {
     // If a value is not provided, check if it has incomers
     const incomingEdges = edges.filter((edge) => edge.target === node.id);
     const inputLinkedToOutput = incomingEdges.find(
-      (edge) => edge.targetHandle === input.name
+      (edge) => edge.targetHandle === input.name,
     );
 
     const requiredInputProvidedByVisitedOutput =

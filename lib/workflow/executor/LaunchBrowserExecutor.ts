@@ -3,7 +3,7 @@ import puppeteer from "puppeteer";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
 
 export const LaunchBrowserExecutor = async (
-  environment: ExecutionEnvironment<typeof LaunchBrowserTask>
+  environment: ExecutionEnvironment<typeof LaunchBrowserTask>,
 ): Promise<boolean> => {
   try {
     const websiteUrl = environment.getInput("Website url");

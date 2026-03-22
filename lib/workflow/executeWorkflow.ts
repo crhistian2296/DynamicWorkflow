@@ -222,6 +222,7 @@ async function executePhase(
   const runFn =
     ExecutorRegistry[node.data.type as keyof typeof ExecutorRegistry];
   if (!runFn) {
+    logCollector.error(`No executor found for task type ${node.data.type}`);
     return false;
   }
 

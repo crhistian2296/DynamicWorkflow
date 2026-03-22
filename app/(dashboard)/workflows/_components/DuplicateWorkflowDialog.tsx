@@ -3,7 +3,7 @@
 import { DuplicateWorkflow } from "@/actions/workflows/duplicateWorkflow";
 import CustomDialogHeader from "@/components/CustomDialogHeader";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
   FormControl,
   FormDescription,
@@ -18,14 +18,22 @@ import {
   duplicateWorkflowSchemaType,
 } from "@/schema/workflow";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Layers2Icon, Loader2 } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const DuplicateWorkflowDialog = ({ workflowId }: { workflowId?: string }) => {
-  const [open, setOpen] = useState(false);
+const DuplicateWorkflowDialog = ({
+  workflowId,
+  open,
+  setOpen,
+}: {
+  workflowId?: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}) => {
+  const queryClient = useQueryClient();
   const form = useForm<duplicateWorkflowSchemaType>({
     resolver: zodResolver(duplicateWorkflowSchema),
     defaultValues: { workflowId },
@@ -37,9 +45,14 @@ const DuplicateWorkflowDialog = ({ workflowId }: { workflowId?: string }) => {
       toast.success("Workflow duplicated successfully", {
         id: "duplicate-workflow",
       });
+      queryClient.invalidateQueries({ queryKey: ["workflows"] });
     },
     onError: () => {
       toast.error("Failed to duplicate workflow", { id: "duplicate-workflow" });
+    },
+    onSettled: () => {
+      form.reset();
+      setOpen(false);
     },
   });
 
@@ -59,9 +72,6 @@ const DuplicateWorkflowDialog = ({ workflowId }: { workflowId?: string }) => {
         setOpen(open);
       }}
     >
-      <DialogTrigger asChild>
-        <Button>{"duplicate workflow"}</Button>
-      </DialogTrigger>
       <DialogContent className="px-0">
         <CustomDialogHeader
           icon={Layers2Icon}

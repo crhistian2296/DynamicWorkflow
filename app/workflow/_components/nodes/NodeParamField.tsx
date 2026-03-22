@@ -3,6 +3,7 @@ import { TaskParam, TaskParamType } from "@/types/task";
 import { useReactFlow } from "@xyflow/react";
 import { useCallback } from "react";
 import BrowserInstanceParam from "./params/BrowserInstanceParam";
+import SelectParam from "./params/SelectParam";
 import StringParam from "./params/StringParam";
 
 const NodeParamField = ({
@@ -27,7 +28,7 @@ const NodeParamField = ({
         },
       });
     },
-    [nodeId, node?.data?.inputs, param.name, updateNodeData]
+    [nodeId, node?.data?.inputs, param.name, updateNodeData],
   );
 
   switch (param.type) {
@@ -42,12 +43,27 @@ const NodeParamField = ({
       );
     case TaskParamType.BROWSER_INSTANCE:
       return (
-        <BrowserInstanceParam param={param} value="" updateNodeParamValue={updateNodeParamValue} />
+        <BrowserInstanceParam
+          param={param}
+          value=""
+          updateNodeParamValue={updateNodeParamValue}
+        />
+      );
+    case TaskParamType.SELECT:
+      return (
+        <SelectParam
+          param={param}
+          value={value}
+          updateNodeParamValue={updateNodeParamValue}
+          disabled={disabled}
+        />
       );
     default:
       return (
         <div className="w-full">
-          <p className="text-xs text-muted-foreground">Not implemented yet: {param.type}</p>
+          <p className="text-xs text-muted-foreground">
+            Not implemented yet: {param.type}
+          </p>
         </div>
       );
   }

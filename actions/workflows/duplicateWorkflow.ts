@@ -44,5 +44,5 @@ export async function DuplicateWorkflow(form: duplicateWorkflowSchemaType) {
     throw new Error("Failed to duplicate workflow");
   }
 
-  revalidatePath("/dashboard/workflows");
+  revalidatePath("/workflows");
 }
