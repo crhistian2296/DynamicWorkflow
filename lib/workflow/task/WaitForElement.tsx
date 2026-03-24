@@ -5,7 +5,7 @@ import { EyeIcon } from "lucide-react";
 export const WaitForElementTask = {
   type: TaskType.WAIT_FOR_ELEMENT,
   label: "Wait For Element",
-  icon: (props) => <EyeIcon className="stroke-slate-800" {...props} />,
+  icon: (props) => <EyeIcon className="stroke-slate-600" {...props} />,
   isEntryPoint: false,
   credits: 1,
   inputs: [

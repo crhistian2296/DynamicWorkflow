@@ -1,0 +1,24 @@
+import { TaskParamType, TaskType } from "@/types/task";
+import { WorkflowTask } from "@/types/workflows";
+import { MousePointerClick } from "lucide-react";
+
+export const DeliverViaWebHook = {
+  type: TaskType.DELIVER_VIA_WEBHOOK,
+  label: "Deliver via Webhook",
+  icon: (props) => <MousePointerClick className="stroke-lime-700" {...props} />,
+  isEntryPoint: false,
+  credits: 1,
+  inputs: [
+    {
+      name: "Target URL",
+      type: TaskParamType.STRING,
+      required: true,
+    },
+    {
+      name: "Payload",
+      type: TaskParamType.STRING,
+      required: true,
+    },
+  ],
+  outputs: [],
+} satisfies WorkflowTask;
