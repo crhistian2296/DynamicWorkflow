@@ -2,7 +2,7 @@ import { ExecutionEnvironment } from "@/types/executor";
 import { TaskType } from "@/types/task";
 import { WorkflowTask } from "@/types/workflows";
 import { ClickElementExecutor } from "./ClickElementExecutor";
-import { DeliverViaWebHookExecutor } from "./DeliveViaWebhookExecutor";
+import { DeliverViaWebHookExecutor } from "./DeliverViaWebhookExecutor";
 import { ExtractTextFromElementExecutor } from "./ExtractTextFromElementExecutor";
 import { FillInputExecutor } from "./FillInputExecutor";
 import { LaunchBrowserExecutor } from "./LaunchBrowserExecutor";

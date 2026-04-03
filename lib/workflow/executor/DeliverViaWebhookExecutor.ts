@@ -1,8 +1,8 @@
 import { ExecutionEnvironment } from "@/types/executor";
-import { DeliverViaWebHook } from "../task/DeliverViaWebHook";
+import { DeliverViaWebHookTask } from "../task/DeliverViaWebHook";
 
 export const DeliverViaWebHookExecutor = async (
-  environment: ExecutionEnvironment<typeof DeliverViaWebHook>,
+  environment: ExecutionEnvironment<typeof DeliverViaWebHookTask>,
 ): Promise<boolean> => {
   try {
     const targetUrl = environment.getInput("Target URL");
