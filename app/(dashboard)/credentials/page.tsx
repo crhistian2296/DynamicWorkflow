@@ -1,8 +1,11 @@
 import GetCredentialsForUser from "@/actions/credentials/getCredentialsForUser";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
+import { formatDistanceToNow } from "date-fns";
 import { ShieldIcon, ShieldOffIcon } from "lucide-react";
 import { Suspense } from "react";
+import CreateCredentialDialog from "./_components/CreateCredentialDialog";
+import CredentialCard from "./_components/CredentialCard";
 
 const CredentialsPage = () => {
   return (
@@ -12,6 +15,7 @@ const CredentialsPage = () => {
           <h1 className="text-3xl font-bold">Credentials</h1>
           <p className="text-muted-foreground">Manage your credentials</p>
         </div>
+        <CreateCredentialDialog />
       </div>
 
       <div className="h-full py-6">
@@ -22,10 +26,10 @@ const CredentialsPage = () => {
             All information is securely encrypted, ensuring your data remains
             private and protected.
           </AlertDescription>
-          <Suspense fallback={<div>Loading credentials...</div>}>
-            <UserCredentials />
-          </Suspense>
         </Alert>
+        <Suspense fallback={<div>Loading credentials...</div>}>
+          <UserCredentials />
+        </Suspense>
       </div>
     </div>
   );
@@ -34,6 +38,7 @@ const CredentialsPage = () => {
 const UserCredentials = async () => {
   const credentials = await GetCredentialsForUser();
   if (!credentials) return <div>No credentials found.</div>;
+
   if (credentials.length === 0) {
     return (
       <Card className="w-full p-4">
@@ -47,12 +52,27 @@ const UserCredentials = async () => {
               Start by adding a new credential to get started.
             </p>
           </div>
+          <CreateCredentialDialog triggerText="Create your first credential" />
         </div>
       </Card>
     );
   }
 
-  return <div>User creds</div>;
+  return (
+    <div className="flex gap-2 flex-wrap mt-8">
+      {credentials.map((credential) => {
+        const createdAt = formatDistanceToNow(credential.createdAt);
+        return (
+          <CredentialCard
+            key={credential.id}
+            id={credential.id}
+            name={credential.name}
+            createdAt={createdAt}
+          />
+        );
+      })}
+    </div>
+  );
 };
 
 export default CredentialsPage;

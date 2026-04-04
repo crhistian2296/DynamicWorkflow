@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const NavigationTabs = ({ workflowId }: { workflowId: string }) => {
   const pathname = usePathname();
   const activeValue = pathname?.split("/")[2];
-  console.log("@@ACTIVE TAB:", activeValue);
+  // console.log("@@ACTIVE TAB:", activeValue);
 
   return (
     <Tabs value={activeValue} className="w-[400px]">

@@ -92,7 +92,7 @@ export function FlowToExecutionPlan(
       nextPhase.nodes.push(currentNode);
     }
     // Add the next phase to the execution plan
-    console.log(`Phase ${phase}`, nextPhase);
+    // console.log(`Phase ${phase}`, nextPhase);
     for (const node of nextPhase.nodes) {
       planned.add(node.id);
     }

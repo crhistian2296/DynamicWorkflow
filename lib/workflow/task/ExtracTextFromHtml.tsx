@@ -5,7 +5,9 @@ import { LucideProps, TextIcon } from "lucide-react";
 export const ExtractTextFromHtmlTask = {
   type: TaskType.EXTRACT_TEXT_FROM_HTML,
   label: "Extract text from Html",
-  icon: (props: LucideProps) => <TextIcon className="stroke-orange-400" {...props} />,
+  icon: (props: LucideProps) => (
+    <TextIcon className="stroke-pink-400" {...props} />
+  ),
   isEntryPoint: false,
   credits: 2,
   inputs: [

@@ -96,5 +96,5 @@ model Credential {
   createdAt DateTime @default(now())
 
   // User cannot have two credentials with the same name
-  @@unique([name, userId])
+  @@unique([userId, name])
 }
