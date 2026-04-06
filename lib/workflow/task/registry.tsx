@@ -7,6 +7,7 @@ import { ExtractTextFromHtmlTask } from "./ExtracTextFromHtml";
 import { FillInputTask } from "./FillInput";
 import { LaunchBrowserTask } from "./LaunchBrowser";
 import { PageToHtmlTask } from "./PageToHtml";
+import { ReadPropertyFromJsonTask } from "./ReadPropertyFromJson";
 import { WaitForElementTask } from "./WaitForElement";
 
 type Registry = {
@@ -24,4 +25,5 @@ export const TaskRegistry: Registry = {
   WAIT_FOR_ELEMENT: WaitForElementTask,
   DELIVER_VIA_WEBHOOK: DeliverViaWebHookTask,
   EXTRACT_DATA_WITH_AI: ExtractDataWithAiTask,
+  READ_PROPERTY_FROM_JSON: ReadPropertyFromJsonTask,
 };

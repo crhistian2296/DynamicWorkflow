@@ -14,7 +14,13 @@ const TaskMenu = () => {
       <Accordion
         type="multiple"
         className="w-full"
-        defaultValue={["interaction", "extraction", "timing", "results"]}
+        defaultValue={[
+          "interaction",
+          "extraction",
+          "storage",
+          "timing",
+          "results",
+        ]}
       >
         <AccordionItem value="interaction">
           <AccordionTrigger className="font-bold">
@@ -33,6 +39,12 @@ const TaskMenu = () => {
             <TaskMenuBtn taskType={TaskType.PAGE_TO_HTML} />
             <TaskMenuBtn taskType={TaskType.EXTRACT_TEXT_FROM_HTML} />
             <TaskMenuBtn taskType={TaskType.EXTRACT_DATA_WITH_AI} />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="storage">
+          <AccordionTrigger className="font-bold">Storage</AccordionTrigger>
+          <AccordionContent className="flex flex-col gap-1 pb-3">
+            <TaskMenuBtn taskType={TaskType.READ_PROPERTY_FROM_JSON} />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="timing">
