@@ -1,13 +1,16 @@
 import { TaskType } from "@/types/task";
 import { WorkflowTask } from "@/types/workflows";
+import { AddPropertyFromJsonTask } from "./AddPropertyFromJson";
 import { ClickElementTask } from "./ClickElement";
 import { DeliverViaWebHookTask } from "./DeliverViaWebHook";
 import { ExtractDataWithAiTask } from "./ExtractDataWithAi";
 import { ExtractTextFromHtmlTask } from "./ExtracTextFromHtml";
 import { FillInputTask } from "./FillInput";
 import { LaunchBrowserTask } from "./LaunchBrowser";
+import { NavigateToUrlTask } from "./NavigateToUrl";
 import { PageToHtmlTask } from "./PageToHtml";
 import { ReadPropertyFromJsonTask } from "./ReadPropertyFromJson";
+import { ScrollToElementTask } from "./ScrollToElement";
 import { WaitForElementTask } from "./WaitForElement";
 
 type Registry = {
@@ -26,4 +29,7 @@ export const TaskRegistry: Registry = {
   DELIVER_VIA_WEBHOOK: DeliverViaWebHookTask,
   EXTRACT_DATA_WITH_AI: ExtractDataWithAiTask,
   READ_PROPERTY_FROM_JSON: ReadPropertyFromJsonTask,
+  ADD_PROPERTY_FROM_JSON: AddPropertyFromJsonTask,
+  NAVIGATE_TO_URL: NavigateToUrlTask,
+  SCROLL_TO_ELEMENT: ScrollToElementTask,
 };

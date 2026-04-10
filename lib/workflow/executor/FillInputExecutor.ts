@@ -11,6 +11,8 @@ export const FillInputExecutor = async (
     const value = environment.getInput("Value");
     if (!value) environment.log.error("Value is required");
 
+    if (!selector || !value) return false;
+
     await environment.getPage()!.type(selector, value);
     return true;
   } catch (error: any) {

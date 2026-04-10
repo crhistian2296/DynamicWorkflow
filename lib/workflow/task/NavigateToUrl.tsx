@@ -1,0 +1,29 @@
+import { TaskParamType, TaskType } from "@/types/task";
+import { WorkflowTask } from "@/types/workflows";
+import { MousePointerClick } from "lucide-react";
+
+export const NavigateToUrlTask = {
+  type: TaskType.NAVIGATE_TO_URL,
+  label: "Navigate to URL",
+  icon: (props) => <MousePointerClick className="stroke-blue-400" {...props} />,
+  isEntryPoint: false,
+  credits: 1,
+  inputs: [
+    {
+      name: "Web page",
+      type: TaskParamType.BROWSER_INSTANCE,
+      required: true,
+    },
+    {
+      name: "URL",
+      type: TaskParamType.STRING,
+      required: true,
+    },
+  ],
+  outputs: [
+    {
+      name: "Web page",
+      type: TaskParamType.BROWSER_INSTANCE,
+    },
+  ],
+} satisfies WorkflowTask;

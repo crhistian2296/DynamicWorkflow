@@ -3,10 +3,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { TaskType } from "@/types/task";
 import { AccordionContent } from "@radix-ui/react-accordion";
+import { CoinsIcon } from "lucide-react";
 
 const TaskMenu = () => {
   return (
@@ -27,8 +29,10 @@ const TaskMenu = () => {
             User interaction
           </AccordionTrigger>
           <AccordionContent className="flex flex-col gap-1 pb-3">
+            <TaskMenuBtn taskType={TaskType.NAVIGATE_TO_URL} />
             <TaskMenuBtn taskType={TaskType.FILL_INPUT} />
             <TaskMenuBtn taskType={TaskType.CLICK_ELEMENT} />
+            <TaskMenuBtn taskType={TaskType.SCROLL_TO_ELEMENT} />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="extraction">
@@ -45,6 +49,7 @@ const TaskMenu = () => {
           <AccordionTrigger className="font-bold">Storage</AccordionTrigger>
           <AccordionContent className="flex flex-col gap-1 pb-3">
             <TaskMenuBtn taskType={TaskType.READ_PROPERTY_FROM_JSON} />
+            <TaskMenuBtn taskType={TaskType.ADD_PROPERTY_FROM_JSON} />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="timing">
@@ -79,7 +84,7 @@ const TaskMenuBtn = ({ taskType }: { taskType: TaskType }) => {
   return (
     <Button
       variant={"secondary"}
-      className="flex justify-start items-center border w-full gap-2"
+      className="flex justify-between items-center border w-full gap-2"
       draggable
       onDragStart={(event) => {
         ondragstart(event, taskType);
@@ -87,6 +92,10 @@ const TaskMenuBtn = ({ taskType }: { taskType: TaskType }) => {
     >
       <task.icon size={20} />
       {task.label}
+      <Badge className="gap-1 flex items-center" variant={"outline"}>
+        <CoinsIcon size={16} />
+        {task.credits}
+      </Badge>
     </Button>
   );
 };

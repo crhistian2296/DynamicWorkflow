@@ -110,8 +110,8 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
 
   return (
     <div className="flex w-full h-full">
-      <aside className="w-[440px] min-w-[440px] max-w-[440px] border-r-2 border-separate flex-grow flex-col overflow-hidden">
-        <div className="py-4 px-2">
+      <aside className="w-[440px] min-w-[440px] max-w-[440px] border-r-2 border-separate flex flex-col overflow-hidden">
+        <div className="py-4 px-2 flex flex-col flex-1 min-h-0">
           {/* Status label */}
           <ExecutionLabel
             icon={CircleDashedIcon}
@@ -163,7 +163,7 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
             </div>
           </div>
           <Separator />
-          <div className="px-2 py-1 flex flex-col gap-1">
+          <div className="px-2 py-1 flex flex-col gap-1 flex-1 min-h-0 overflow-auto">
             {executionData?.phases.map((phase, index) => (
               <Button
                 variant={selectedPhase === phase.id ? "secondary" : "ghost"}

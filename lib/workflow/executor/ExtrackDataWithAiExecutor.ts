@@ -17,6 +17,8 @@ export const ExtractDataWithAiExecutor = async (
     const content = environment.getInput("Content");
     if (!content) environment.log.error("Content is required");
 
+    if (!credentials || !prompt || !content) return false;
+
     let credential: { name: string; value: string } | null = null;
     let llm: string = "";
     const isLocalModel = credentials.endsWith("(local model)");

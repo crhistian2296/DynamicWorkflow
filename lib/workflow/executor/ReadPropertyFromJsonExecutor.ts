@@ -9,6 +9,7 @@ export const ReadPropertyFromJsonExecutor = async (
     const propertyName = environment.getInput("Property name");
     if (!json) environment.log.error("JSON is required");
     if (!propertyName) environment.log.error("Property name is required");
+    if (!json || !propertyName) return false;
 
     const parsedJson = JSON.parse(json);
     const propertyValue = parsedJson[propertyName];

@@ -11,6 +11,8 @@ export const DeliverViaWebHookExecutor = async (
     const payload = environment.getInput("Payload");
     if (!payload) environment.log.error("Payload is required");
 
+    if (!payload || !targetUrl) return false;
+
     const response = await fetch(targetUrl, {
       method: "POST",
       headers: {
