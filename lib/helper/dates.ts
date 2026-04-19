@@ -1,8 +1,9 @@
-import { intervalToDuration } from "date-fns";
+import { UiPeriod } from "@/types/analytics";
+import { endOfMonth, intervalToDuration, startOfMonth } from "date-fns";
 
 export const DatesToDurationString = (
   start: Date | null | undefined,
-  end: Date | null | undefined
+  end: Date | null | undefined,
 ) => {
   if (!start || !end) return null;
 
@@ -19,3 +20,10 @@ export const DatesToDurationString = (
 
   // return `${hours}h ${minutes}m ${seconds}s`;
 };
+
+export function PeriodToDateRange(period: UiPeriod) {
+  const { year, month } = period;
+  const startDate = startOfMonth(new Date(Number(year), Number(month) - 1, 1));
+  const endDate = endOfMonth(new Date(Number(year), Number(month) - 1, 1));
+  return { startDate, endDate };
+}

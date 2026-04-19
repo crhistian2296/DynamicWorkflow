@@ -14,14 +14,12 @@ const UserAvailableCreditsBadge = () => {
     refetchInterval: 30 * 1000, // Refetch every 30 seconds
   });
 
-  console.log(query.data);
-
   return (
     <Link
       href={"/billing"}
       className={cn(
         "w-full space-x-2 items-center",
-        buttonVariants({ variant: "outline" })
+        buttonVariants({ variant: "outline" }),
       )}
     >
       <CoinsIcon size={20} className="text-primary" />
