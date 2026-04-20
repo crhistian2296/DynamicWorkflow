@@ -14,13 +14,16 @@ export default function StatsCard({
   icon: Icon,
 }: StatsCardProps) {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="relative overflow-hidden w-full h-[120px]">
+      <CardHeader className="flex pb-2">
         <CardTitle>{title}</CardTitle>
-        <Icon size={120} />
+        <Icon
+          size={120}
+          className="text-muted-foreground absolute -bottom-4 -right-8 stroke-primary opacity-10"
+        />
       </CardHeader>
       <CardContent>
-        <div>
+        <div className="text-2xl font-bold text-primary">
           <ReactCountUpWrapper value={value}></ReactCountUpWrapper>
         </div>
       </CardContent>

@@ -1,11 +1,13 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { UiPeriod } from "@/types/analytics";
 import { Suspense } from "react";
-import PeriodSelectorWrapper from "./_components/PeriodSelectorWrapper";
+import PeriodSelectorWrapper, {
+  StatsCards,
+} from "./_components/PeriodSelectorWrapper";
 
-function HomePage({ searchParams }: { searchParams?: UiPeriod }) {
+async function HomePage({ searchParams }: { searchParams?: UiPeriod }) {
   const currentDate = new Date();
-  const period =
+  const period: UiPeriod =
     searchParams?.year && searchParams?.month
       ? { year: searchParams.year, month: searchParams.month }
       : {
@@ -21,7 +23,21 @@ function HomePage({ searchParams }: { searchParams?: UiPeriod }) {
           <PeriodSelectorWrapper selectedPeriod={period} />
         </Suspense>
       </div>
-      {/* <StatsCard title="Workflow executions" value={123} icon={SomeIcon} /> */}
+      <div className="h-full py-6 flex flex-col gap-4">
+        <Suspense fallback={<StatsCardsSkeleton />}>
+          <StatsCards selectedPeriod={period} />
+        </Suspense>
+      </div>
+    </div>
+  );
+}
+
+function StatsCardsSkeleton() {
+  return (
+    <div className="flex flex-col lg:flex-row gap-3 w-full">
+      {[1, 2, 3].map((i) => (
+        <Skeleton key={i} className="w-full h-[113.6px]" />
+      ))}
     </div>
   );
 }
