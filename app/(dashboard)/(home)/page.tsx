@@ -1,9 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { UiPeriod } from "@/types/analytics";
 import { Suspense } from "react";
-import PeriodSelectorWrapper, {
-  StatsCards,
-} from "./_components/PeriodSelectorWrapper";
+import ExecutionsStatsWrapper from "./_components/ExecutionsStatsWrapper";
+import PeriodSelectorWrapper from "./_components/PeriodSelectorWrapper";
+import { StatsCards } from "./_components/StatsCard";
 
 async function HomePage({ searchParams }: { searchParams?: UiPeriod }) {
   const currentDate = new Date();
@@ -26,6 +26,9 @@ async function HomePage({ searchParams }: { searchParams?: UiPeriod }) {
       <div className="h-full py-6 flex flex-col gap-4">
         <Suspense fallback={<StatsCardsSkeleton />}>
           <StatsCards selectedPeriod={period} />
+        </Suspense>
+        <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+          <ExecutionsStatsWrapper selectedPeriod={period} />
         </Suspense>
       </div>
     </div>
