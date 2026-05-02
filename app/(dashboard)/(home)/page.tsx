@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { UiPeriod } from "@/types/analytics";
 import { Suspense } from "react";
+import CreditsUsageInPeriodWrapper from "./_components/CreditsUsageInPeriodWrapper";
 import ExecutionsStatsWrapper from "./_components/ExecutionsStatsWrapper";
 import PeriodSelectorWrapper from "./_components/PeriodSelectorWrapper";
 import { StatsCards } from "./_components/StatsCard";
@@ -29,6 +30,9 @@ async function HomePage({ searchParams }: { searchParams?: UiPeriod }) {
         </Suspense>
         <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
           <ExecutionsStatsWrapper selectedPeriod={period} />
+        </Suspense>
+        <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+          <CreditsUsageInPeriodWrapper selectedPeriod={period} />
         </Suspense>
       </div>
     </div>

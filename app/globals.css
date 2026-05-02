@@ -79,6 +79,10 @@
   }
 }
 
+.dark .react-flow__controls-button {
+  @apply !bg-accent;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -86,4 +90,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.react-flow__attribution {
+  background-color: transparent !important;
 }
