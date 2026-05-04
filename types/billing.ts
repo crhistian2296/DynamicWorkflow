@@ -10,6 +10,7 @@ export type CreditsPack = {
   label: string;
   credits: number;
   price: number; // in cents
+  priceId: string; // Stripe Price ID
 };
 
 export const StarterPack: CreditsPack = {
@@ -18,6 +19,7 @@ export const StarterPack: CreditsPack = {
   label: "1000 Credits",
   credits: 1000,
   price: 1000,
+  priceId: process.env.STRIPE_PRICE_STARTER!, // Replace with your actual Stripe Price ID
 };
 
 export const ProPack: CreditsPack = {
@@ -26,6 +28,7 @@ export const ProPack: CreditsPack = {
   label: "5000 Credits",
   credits: 5000,
   price: 2000,
+  priceId: process.env.STRIPE_PRICE_PRO!, // Replace with your actual Stripe Price ID
 };
 
 export const ProPlusPack: CreditsPack = {
@@ -34,6 +37,7 @@ export const ProPlusPack: CreditsPack = {
   label: "12000 Credits",
   credits: 12000,
   price: 4000,
+  priceId: process.env.STRIPE_PRICE_PRO_PLUS!, // Replace with your actual Stripe Price ID
 };
 
 export const creditsPacks: CreditsPack[] = [StarterPack, ProPack, ProPlusPack];
