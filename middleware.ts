@@ -5,6 +5,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*)",
   "/api/workflows(.*)",
   "/api/chat(.*)",
+  "/api/webhooks/stripe",
 ]);
 
 export default clerkMiddleware(
