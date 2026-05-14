@@ -2,8 +2,6 @@
 export async function POST(req: Request) {
   const { prompt, content, model, headers } = await req.json();
 
-  console.log("Received headers:", headers);
-
   const controledPrompt = `
 You are a RESTRICTED assistant with a single, fixed purpose: extract CSS selectors from HTML content.
 

@@ -14,13 +14,13 @@ export const AddPropertyFromJsonExecutor = async (
 
     const parsedJson = JSON.parse(json);
 
-    console.log("Parsed JSON type:", typeof parsedJson);
-    console.log("raw JSON:", json);
-    console.log("Parsed JSON:", parsedJson);
-    console.log(
-      `Extracted ${propertyName} ${parsedJson[propertyName]}:`,
-      propertyValue,
-    );
+    // console.log("Parsed JSON type:", typeof parsedJson);
+    // console.log("raw JSON:", json);
+    // console.log("Parsed JSON:", parsedJson);
+    // console.log(
+    //   `Extracted ${propertyName} ${parsedJson[propertyName]}:`,
+    //   propertyValue,
+    // );
     const updatedJson = { ...parsedJson, [propertyName]: propertyValue };
 
     environment.setOutput("Updated JSON", JSON.stringify(updatedJson));

@@ -2,6 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 import BalanceCard from "./_components/BalanceCard";
 import CreditsPurchase from "./_components/CreditsPurchase";
+import CreditUsageCard from "./_components/CreditUsageCard";
+import TransactionHistoryCard from "./_components/TransactionHistoryCard";
 
 const BillingPage = () => {
   return (
@@ -11,6 +13,12 @@ const BillingPage = () => {
         <BalanceCard />
       </Suspense>
       <CreditsPurchase />
+      <Suspense fallback={<Skeleton className="h-[200px] w-full" />}>
+        <CreditUsageCard />
+      </Suspense>
+      <Suspense fallback={<Skeleton className="h-[200px] w-full" />}>
+        <TransactionHistoryCard />
+      </Suspense>
     </div>
   );
 };

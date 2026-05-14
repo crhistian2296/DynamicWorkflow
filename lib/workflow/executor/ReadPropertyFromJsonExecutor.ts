@@ -14,13 +14,13 @@ export const ReadPropertyFromJsonExecutor = async (
     const parsedJson = JSON.parse(json);
     const propertyValue = parsedJson[propertyName];
 
-    console.log("Parsed JSON type:", typeof parsedJson);
-    console.log("raw JSON:", json);
-    console.log("Parsed JSON:", parsedJson);
-    console.log(
-      `Extracted ${propertyName} ${parsedJson[propertyName]}:`,
-      propertyValue,
-    );
+    // console.log("Parsed JSON type:", typeof parsedJson);
+    // console.log("raw JSON:", json);
+    // console.log("Parsed JSON:", parsedJson);
+    // console.log(
+    //   `Extracted ${propertyName} ${parsedJson[propertyName]}:`,
+    //   propertyValue,
+    // );
 
     if (propertyValue === undefined) {
       environment.log.error(`Property "${propertyName}" not found in JSON`);

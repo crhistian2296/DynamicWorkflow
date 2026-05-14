@@ -17,9 +17,9 @@ export async function GET(req: Request) {
     },
   });
 
-  console.log("@@WORKFLOW TO RUN", workflows.length);
+  // console.log("@@WORKFLOW TO RUN", workflows.length);
   for (const workflow of workflows) {
-    console.log("@@WORKFLOW TO RUN ID", workflow.id);
+    // console.log("@@WORKFLOW TO RUN ID", workflow.id);
     triggerWorkflow(workflow.id);
   }
 
@@ -31,7 +31,7 @@ export async function GET(req: Request) {
 
 function triggerWorkflow(workflowId: string) {
   const triggerApiUrl = `${getAppUrl(`api/workflows/execute?workflowId=${workflowId}`)}`;
-  console.log("@@TRIGGER URL:", triggerApiUrl);
+  // console.log("@@TRIGGER URL:", triggerApiUrl);
 
   fetch(triggerApiUrl, {
     headers: {

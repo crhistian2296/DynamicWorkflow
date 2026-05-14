@@ -4,7 +4,7 @@ import Stripe from "stripe";
 import prisma from "../prisma";
 
 export default async function HandleCheckoutSessionCompleted(
-  session: Stripe.Checkout.Session,
+  event: Stripe.Checkout.Session,
 ) {
   // writeFile(
   //   "session_completed.json",
@@ -17,9 +17,9 @@ export default async function HandleCheckoutSessionCompleted(
   //     }
   //   },
   // );
-  if (!session.metadata) throw new Error("No metadata found in session");
+  if (!event.metadata) throw new Error("No metadata found in session");
 
-  const { userId, packId } = session.metadata;
+  const { userId, packId } = event.metadata;
 
   if (!userId || !packId) throw new Error("Missing session metadata");
 
@@ -37,6 +37,16 @@ export default async function HandleCheckoutSessionCompleted(
       credits: {
         increment: purchasedPack.credits,
       },
+    },
+  });
+
+  await prisma.userPurchase.create({
+    data: {
+      userId,
+      stripeId: event?.id,
+      description: `${purchasedPack.credits} - ${purchasedPack.credits} credits pack`,
+      amount: event.amount_total ?? 0,
+      currency: event.currency ?? "usd",
     },
   });
 }
