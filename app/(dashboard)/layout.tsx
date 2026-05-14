@@ -4,9 +4,10 @@ import BreadcrumbHeader from "@/components/BreadcrumbHeader";
 import DesktopSidebar from "@/components/Sidebar";
 import { ModeToggle } from "@/components/ThemeModeToggle";
 import { Separator } from "@/components/ui/separator";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
+  const { isSignedIn } = useUser();
   return (
     <div className="flex h-screen">
       <DesktopSidebar />
@@ -16,9 +17,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
           <div className="gap-1 flex items-center">
             <ModeToggle />
             <div className="flex flex-col items-center justify-center h-full ml-2">
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
+              {isSignedIn && <UserButton />}
             </div>
           </div>
         </header>

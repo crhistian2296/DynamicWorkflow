@@ -12,7 +12,7 @@ export type Stats = Record<string, { success: number; failed: number }>;
 const { COMPLETED, FAILED } = ExecutionPhaseStatus;
 
 async function GetCreditUsageInPeriod(selectedPeriod: UiPeriod) {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) {
     throw new Error("User not authenticated");
   }

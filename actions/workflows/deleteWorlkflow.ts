@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export async function DeleteWorkflow(workflowId: string) {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
 
   if (!userId) {
     throw new Error("Unauthorized");

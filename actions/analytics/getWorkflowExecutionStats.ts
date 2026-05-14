@@ -10,7 +10,7 @@ import { eachDayOfInterval, formatDate } from "date-fns";
 export type Stats = Record<string, { success: number; failed: number }>;
 
 async function GetWorkflowExecutionStats(selectedPeriod: UiPeriod) {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) {
     throw new Error("User not authenticated");
   }

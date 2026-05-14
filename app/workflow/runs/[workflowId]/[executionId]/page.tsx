@@ -42,7 +42,7 @@ const ExecutionViewerWrapper = async ({
 }: {
   executionId: string;
 }) => {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) return <div>Please log in to view this page.</div>;
 
   const workflowExecution = await GetWorkflowExecutionWithPhases(executionId);
