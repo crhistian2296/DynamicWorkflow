@@ -40,11 +40,13 @@ const GetStatsCardsValues = async (period: UiPeriod) => {
   const stats = {
     workflowExecutions: executions.length,
     totalCreditsConsumed: executions.reduce(
-      (acc, exec) => acc + (exec.creditsConsumed || 0),
+      (acc: number, exec: (typeof executions)[number]) =>
+        acc + (exec.creditsConsumed || 0),
       0,
     ),
     phaseExecutions: executions.reduce(
-      (acc, exec) => acc + (exec.phases?.length || 0),
+      (acc: number, exec: (typeof executions)[number]) =>
+        acc + (exec.phases?.length || 0),
       0,
     ),
   };

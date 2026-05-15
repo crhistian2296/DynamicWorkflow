@@ -2,6 +2,7 @@
   "name": "dynamicworkflow",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -42,6 +43,7 @@
     "@radix-ui/react-toggle-group": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.8",
     "@tanstack/react-query": "^5.100.10",
+    "@tanstack/react-query-devtools": "^5.67.2",
     "@xyflow/react": "12.10.2",
     "cheerio": "^1.1.2",
     "class-variance-authority": "^0.7.1",
@@ -73,8 +75,8 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
     "@tailwindcss/postcss": "^4.3.0",
-    "@tanstack/react-query-devtools": "^5.67.2",
     "@types/node": "^25.8.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -85,27 +87,10 @@
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
-  "overrides": {
-    "flatted": "3.4.2",
-    "js-yaml": "4.1.1",
-    "tar-fs": "3.1.2",
-    "undici": "7.25.0",
-    "@hono/node-server": "1.19.13",
-    "ip-address": "10.2.0",
-    "yaml": "2.9.0",
-    "glob": "10.5.0",
-    "postcss": "8.5.14",
-    "eslint": {
-      "minimatch": "3.1.5"
-    },
-    "eslint-plugin-react": {
-      "minimatch": "3.1.5"
-    },
-    "micromatch": {
-      "picomatch": "2.3.2"
-    },
-    "anymatch": {
-      "picomatch": "2.3.2"
+  "pnpm": {
+    "overrides": {
+      "@hono/node-server": ">=1.19.13",
+      "postcss": ">=8.5.10"
     }
   }
 }

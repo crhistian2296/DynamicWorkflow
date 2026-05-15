@@ -46,7 +46,7 @@ async function GetCreditUsageInPeriod(selectedPeriod: UiPeriod) {
       return acc;
     }, {} as Stats);
 
-  executionPhases.forEach((phase) => {
+  executionPhases.forEach((phase: (typeof executionPhases)[number]) => {
     const date = formatDate(phase.startedAt!, dateFormat);
     if (phase.status === ExecutionPhaseStatus.COMPLETED) {
       stats[date].success += phase.creditsConsumed || 0;

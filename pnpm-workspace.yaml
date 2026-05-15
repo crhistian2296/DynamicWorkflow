@@ -1,3 +1,6 @@
+packages:
+  - "."
+
 overrides:
   flatted: "3.4.2"
   js-yaml: "4.1.1"
@@ -13,13 +16,6 @@ overrides:
   "eslint-plugin-react>minimatch": "3.1.5"
   "micromatch>picomatch": "2.3.2"
   "anymatch>picomatch": "2.3.2"
-allowBuilds:
-  "@clerk/shared": false
-  "@prisma/engines": false
-  prisma: false
-  puppeteer: false
-  sharp: false
-  unrs-resolver: false
 onlyBuiltDependencies:
   - "@clerk/shared"
   - "@prisma/engines"
