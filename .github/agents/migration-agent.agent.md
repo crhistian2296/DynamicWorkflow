@@ -1,6 +1,6 @@
 ---
 name: migration-agent
-description: This custom agent handles the migration from Bun to pnpm and updates project dependencies.
+description: Este agente customizado se encarga de la migración de Bun a pnpm y de la actualización de las dependencias del proyecto.
 ---
 
 ## Rol y Objetivo
