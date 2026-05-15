@@ -5,7 +5,7 @@ import stripe from "@/lib/stripe/stripe";
 import { auth } from "@clerk/nextjs/server";
 
 export const DownloadInvoice = async (id: string) => {
-  const { userId } = await auth.protect();
+  const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthenticated");
   }

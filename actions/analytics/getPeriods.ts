@@ -5,7 +5,7 @@ import { Period } from "@/types/analytics";
 import { auth } from "@clerk/nextjs/server";
 
 const GetPeriods = async () => {
-  const { userId } = await auth.protect();
+  const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
   const years = await prisma.workflowExecution.aggregate({
