@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
 export const GetUserPurchaseHistory = async () => {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
 
   if (!userId) {
     throw new Error("Unauthenticated");

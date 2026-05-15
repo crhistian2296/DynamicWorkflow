@@ -9,7 +9,7 @@ import { auth } from "@clerk/nextjs/server";
 const { COMPLETED, FAILED } = WorkflowExecutionStatus;
 
 const GetStatsCardsValues = async (period: UiPeriod) => {
-  const { userId } = await auth();
+  const { userId } = await auth.protect();
   if (!userId) throw new Error("Unauthorized");
 
   const dateRange = PeriodToDateRange(period);

@@ -11,7 +11,7 @@ export async function UpdateWorkflow({
   definition: string;
 }) {
   // await waitFor(4000); // Simulate a delay for the sake of example
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) {
     throw new Error("User not authenticated");
   }

@@ -19,7 +19,7 @@ export const RunWorkflow = async (form: {
   workflowId: string;
   flowDefinition?: string;
 }) => {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) throw new Error("User not authenticated");
   const { workflowId, flowDefinition } = form;
   if (!workflowId) throw new Error("Workflow ID is required");

@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import { PackId } from "../../types/billing";
 
 const PurchaseCredits = async (packId: PackId) => {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) {
     throw new Error("User not authenticated");
   }

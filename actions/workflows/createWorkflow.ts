@@ -15,7 +15,7 @@ export const CreateWorkflow = async (form: createWorkflowSchemaType) => {
     throw new Error("Invalid form data");
   }
 
-  const { userId } = auth();
+  const { userId } = await auth.protect();
 
   if (!userId) {
     throw new Error("User not authenticated");

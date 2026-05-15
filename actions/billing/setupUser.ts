@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 const SetupUser = async () => {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) {
     throw new Error("User not authenticated");
   }
