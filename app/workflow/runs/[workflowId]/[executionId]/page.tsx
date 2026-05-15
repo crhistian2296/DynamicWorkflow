@@ -5,15 +5,15 @@ import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 import ExecutionViewer from "./_components/ExecutionViewer";
 
-const ExecutinViewerPage = ({
+const ExecutinViewerPage = async ({
   params,
 }: {
-  params: {
+  params: Promise<{
     executionId: string;
     workflowId: string;
-  };
+  }>;
 }) => {
-  const { executionId, workflowId } = params;
+  const { executionId, workflowId } = await params;
   return (
     <div className="flex flex-col h-full w-full overflow-hidden">
       <Topbar

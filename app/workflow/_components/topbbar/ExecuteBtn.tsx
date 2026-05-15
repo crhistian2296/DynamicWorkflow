@@ -16,6 +16,7 @@ const ExecuteBtn = ({ workflowId }: { workflowId: string }) => {
     onSuccess: () =>
       toast.success("Workflow execution started", { id: "flow-execution" }),
     onError: (error) => {
+      if (error.message?.startsWith("NEXT_REDIRECT")) return;
       toast.error(`Error executing workflow: ${error.message}`, {
         id: "flow-execution-error",
       });

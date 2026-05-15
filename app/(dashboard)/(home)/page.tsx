@@ -6,11 +6,12 @@ import ExecutionsStatsWrapper from "./_components/ExecutionsStatsWrapper";
 import PeriodSelectorWrapper from "./_components/PeriodSelectorWrapper";
 import { StatsCards } from "./_components/StatsCard";
 
-async function HomePage({ searchParams }: { searchParams?: UiPeriod }) {
+async function HomePage({ searchParams }: { searchParams?: Promise<UiPeriod> }) {
+  const resolvedParams = await searchParams;
   const currentDate = new Date();
   const period: UiPeriod =
-    searchParams?.year && searchParams?.month
-      ? { year: searchParams.year, month: searchParams.month }
+    resolvedParams?.year && resolvedParams?.month
+      ? { year: resolvedParams.year, month: resolvedParams.month }
       : {
           year: currentDate.getFullYear().toString(),
           month: (currentDate.getMonth() + 1).toString().padStart(2, "0"),

@@ -1,6 +1,28 @@
+overrides:
+  flatted: "3.4.2"
+  js-yaml: "4.1.1"
+  tar-fs: "3.1.2"
+  undici: "7.25.0"
+  "@hono/node-server": "1.19.13"
+  basic-ftp: "5.3.1"
+  ip-address: "10.2.0"
+  yaml: "2.9.0"
+  glob: "10.5.0"
+  postcss: "8.5.14"
+  "eslint>minimatch": "3.1.5"
+  "eslint-plugin-react>minimatch": "3.1.5"
+  "micromatch>picomatch": "2.3.2"
+  "anymatch>picomatch": "2.3.2"
+allowBuilds:
+  "@clerk/shared": false
+  "@prisma/engines": false
+  prisma: false
+  puppeteer: false
+  sharp: false
+  unrs-resolver: false
 onlyBuiltDependencies:
-  - '@clerk/shared'
-  - '@prisma/engines'
+  - "@clerk/shared"
+  - "@prisma/engines"
   - prisma
   - puppeteer
   - unrs-resolver

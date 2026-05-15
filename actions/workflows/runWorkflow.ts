@@ -12,6 +12,7 @@ import {
   WorkflowStatus,
 } from "@/types/workflows";
 import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const RunWorkflow = async (form: {
@@ -80,5 +81,6 @@ export const RunWorkflow = async (form: {
 
   ExecuteWorkflow(execution.id); //run in background
 
+  revalidatePath("/workflow/runs");
   redirect(`/workflow/runs/${workflowId}/${execution.id}`);
 };
