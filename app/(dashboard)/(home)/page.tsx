@@ -6,7 +6,11 @@ import ExecutionsStatsWrapper from "./_components/ExecutionsStatsWrapper";
 import PeriodSelectorWrapper from "./_components/PeriodSelectorWrapper";
 import { StatsCards } from "./_components/StatsCard";
 
-async function HomePage({ searchParams }: { searchParams?: Promise<UiPeriod> }) {
+async function HomePage({
+  searchParams,
+}: {
+  searchParams?: Promise<UiPeriod>;
+}) {
   const resolvedParams = await searchParams;
   const currentDate = new Date();
   const period: UiPeriod =

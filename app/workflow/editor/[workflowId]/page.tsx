@@ -2,7 +2,11 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import Editor from "../../_components/Editor";
 
-const page = async ({ params }: { params: Promise<{ workflowId: string }> }) => {
+const page = async ({
+  params,
+}: {
+  params: Promise<{ workflowId: string }>;
+}) => {
   const { workflowId } = await params;
   const { userId } = await auth.protect();
 

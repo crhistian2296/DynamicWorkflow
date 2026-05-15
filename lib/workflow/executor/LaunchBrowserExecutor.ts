@@ -12,14 +12,27 @@ function resolveChromePath(): string | undefined {
   const cacheDir = join(homedir(), ".cache", "puppeteer", "chrome");
   if (!existsSync(cacheDir)) return undefined;
   const versions = readdirSync(cacheDir)
-    .filter((d) => d.startsWith("win64-") || d.startsWith("linux-") || d.startsWith("mac-"))
+    .filter(
+      (d) =>
+        d.startsWith("win64-") ||
+        d.startsWith("linux-") ||
+        d.startsWith("mac-"),
+    )
     .sort()
     .reverse();
   for (const version of versions) {
     const candidates = [
       join(cacheDir, version, "chrome-win64", "chrome.exe"),
       join(cacheDir, version, "chrome-linux64", "chrome"),
-      join(cacheDir, version, "chrome-mac-x64", "Google Chrome for Testing.app", "Contents", "MacOS", "Google Chrome for Testing"),
+      join(
+        cacheDir,
+        version,
+        "chrome-mac-x64",
+        "Google Chrome for Testing.app",
+        "Contents",
+        "MacOS",
+        "Google Chrome for Testing",
+      ),
     ];
     const found = candidates.find(existsSync);
     if (found) return found;
