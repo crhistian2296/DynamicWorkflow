@@ -13,7 +13,7 @@ export async function CreateCredential(form: createCredentialSchemaType) {
   const { success, data } = createCredentialSchema.safeParse(form);
   if (!success) throw new Error("Invalid form data");
 
-  const { userId } = await auth.protect();
+  const { userId } = auth();
   if (!userId) throw new Error("Unauthorized");
 
   // Encrypt the credential value before storing it

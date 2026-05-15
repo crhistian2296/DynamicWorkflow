@@ -11,7 +11,8 @@ const isPublicRoute = createRouteMatcher([
 export default clerkMiddleware(
   (auth, request) => {
     if (!isPublicRoute(request)) {
-      auth.protect();
+      console.log(auth);
+      auth().protect();
     }
   },
   { clockSkewInMs: 60_000 },

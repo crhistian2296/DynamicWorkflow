@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
 export async function GetCredentialsForUser() {
-  const { userId } = await auth.protect();
+  const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized");
   }
