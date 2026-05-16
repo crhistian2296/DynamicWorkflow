@@ -24,8 +24,10 @@ const layout = ({ children }: { children: React.ReactNode }) => {
 
         <Separator />
 
-        <div className="overflow-auto">
-          <div className="flex-1 container py-4 text-accent-foreground">{children}</div>
+        <div className="overflow-auto flex justify-center">
+          <div className="flex-1 container py-4 text-accent-foreground">
+            {children}
+          </div>
         </div>
       </div>
     </div>
