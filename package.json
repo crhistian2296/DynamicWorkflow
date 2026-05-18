@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@api/nim": "workspace:*",
     "@clerk/nextjs": "7.3.4",
     "@hookform/resolvers": "^5.2.2",
     "@libsql/client": "^0.17.3",
@@ -90,7 +91,8 @@
   "pnpm": {
     "overrides": {
       "@hono/node-server": ">=1.19.13",
-      "postcss": ">=8.5.10"
+      "postcss": ">=8.5.10",
+      "underscore": "1.13.8"
     }
   }
 }

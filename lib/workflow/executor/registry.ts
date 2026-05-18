@@ -12,6 +12,7 @@ import { NavigateToUrlExecutor } from "./NavigateToUrlExecutor";
 import { PageToHtmlExecutor } from "./PageToHtmlExecutor";
 import { ReadPropertyFromJsonExecutor } from "./ReadPropertyFromJsonExecutor";
 import { ScrollToElementExecutor } from "./ScrollToElementExecutor";
+import { TranslateWithAiExecutor } from "./TranslateWithAiExecutor";
 import { WaitForElementExecutor } from "./WaitForElement";
 
 type ExecutorFn<T extends WorkflowTask> = (
@@ -35,4 +36,5 @@ export const ExecutorRegistry: RegistryType = {
   ADD_PROPERTY_FROM_JSON: AddPropertyFromJsonExecutor,
   NAVIGATE_TO_URL: NavigateToUrlExecutor,
   SCROLL_TO_ELEMENT: ScrollToElementExecutor,
+  TRANSLATE_WITH_AI: TranslateWithAiExecutor,
 };
