@@ -10,15 +10,15 @@ const NavigationTabs = ({ workflowId }: { workflowId: string }) => {
   // console.log("@@ACTIVE TAB:", activeValue);
 
   return (
-    <Tabs value={activeValue} className="w-[400px]">
-      <TabsList className="grid grid-cols-2 w-full ">
+    <Tabs value={activeValue} className="w-100">
+      <TabsList className="grid grid-cols-2 w-full">
         <Link href={`/workflow/editor/${workflowId}`}>
-          <TabsTrigger className="w-full" value="editor">
+          <TabsTrigger className="w-full cursor-pointer" value="editor">
             Editor
           </TabsTrigger>
         </Link>
         <Link href={`/workflow/runs/${workflowId}`}>
-          <TabsTrigger className="w-full" value="runs">
+          <TabsTrigger className="w-full cursor-pointer" value="runs">
             Runs
           </TabsTrigger>
         </Link>

@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 import ExecutionViewer from "./_components/ExecutionViewer";
 
-const ExecutinViewerPage = async ({
+const ExecutionViewerPage = async ({
   params,
 }: {
   params: Promise<{
@@ -49,4 +49,4 @@ const ExecutionViewerWrapper = async ({
   if (!workflowExecution) return <div>Workflow execution not found.</div>;
   return <ExecutionViewer initialData={workflowExecution} />;
 };
-export default ExecutinViewerPage;
+export default ExecutionViewerPage;

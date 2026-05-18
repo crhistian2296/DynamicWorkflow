@@ -18,8 +18,16 @@ function resolveChromePath(): string | undefined {
         d.startsWith("linux-") ||
         d.startsWith("mac-"),
     )
-    .sort()
-    .reverse();
+    .sort((a, b) => {
+      const versionOf = (s: string) => s.replace(/^[^-]+-/, "");
+      const av = versionOf(a).split(".").map(Number);
+      const bv = versionOf(b).split(".").map(Number);
+      for (let i = 0; i < Math.max(av.length, bv.length); i++) {
+        const diff = (bv[i] ?? 0) - (av[i] ?? 0);
+        if (diff !== 0) return diff;
+      }
+      return 0;
+    });
   for (const version of versions) {
     const candidates = [
       join(cacheDir, version, "chrome-win64", "chrome.exe"),
@@ -28,6 +36,15 @@ function resolveChromePath(): string | undefined {
         cacheDir,
         version,
         "chrome-mac-x64",
+        "Google Chrome for Testing.app",
+        "Contents",
+        "MacOS",
+        "Google Chrome for Testing",
+      ),
+      join(
+        cacheDir,
+        version,
+        "chrome-mac-arm64",
         "Google Chrome for Testing.app",
         "Contents",
         "MacOS",

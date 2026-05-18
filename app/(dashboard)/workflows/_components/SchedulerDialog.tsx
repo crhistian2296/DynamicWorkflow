@@ -104,7 +104,7 @@ function SchedulerDialog({
           title="Schedule workflow execution"
           icon={CalendarIcon}
         />
-        <div className="p-6 space-y-4">
+        <div className="p-6 pt-0 space-y-4">
           <p className="text-muted-foreground text-sm">
             Specify a cron expression to schedule periodic workflow execution.
             All times are in UTC. For example, &quot;0 0 * * *&quot; will run

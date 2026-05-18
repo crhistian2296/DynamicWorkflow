@@ -7,16 +7,16 @@ import TransactionHistoryCard from "./_components/TransactionHistoryCard";
 
 const BillingPage = () => {
   return (
-    <div className="mx-auto p-4 space-y-8">
+    <div className="w-full p-4 space-y-8">
       <h1 className="text-3xl font-bold">Billing</h1>
-      <Suspense fallback={<Skeleton className="h-[166px] w-full" />}>
+      <Suspense fallback={<Skeleton className="h-41.5 w-full" />}>
         <BalanceCard />
       </Suspense>
       <CreditsPurchase />
-      <Suspense fallback={<Skeleton className="h-[200px] w-full" />}>
+      <Suspense fallback={<Skeleton className="h-50 w-full" />}>
         <CreditUsageCard />
       </Suspense>
-      <Suspense fallback={<Skeleton className="h-[200px] w-full" />}>
+      <Suspense fallback={<Skeleton className="h-50 w-full" />}>
         <TransactionHistoryCard />
       </Suspense>
     </div>

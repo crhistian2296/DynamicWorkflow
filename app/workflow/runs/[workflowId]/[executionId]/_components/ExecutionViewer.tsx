@@ -110,7 +110,7 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
 
   return (
     <div className="flex w-full h-full">
-      <aside className="w-[440px] min-w-[440px] max-w-[440px] border-r-2 border-separate flex flex-col overflow-hidden">
+      <aside className="w-110 min-w-110 max-w-110 border-r-2 border-separate flex flex-col overflow-hidden">
         <div className="py-4 px-2 flex flex-col flex-1 min-h-0">
           {/* Status label */}
           <ExecutionLabel
@@ -211,7 +211,7 @@ const ExecutionViewer = ({ initialData }: { initialData: ExecutionData }) => {
           </div>
         )}
         {!isRunning && selectedPhase && data && (
-          <div className="flex flex-col py-4 container gap-4 overflow-auto">
+          <div className="flex flex-col p-4 container gap-4 overflow-auto">
             <div className="flex gap-2 items-center">
               <Badge variant={"outline"} className="space-x-4">
                 <div className="flex gap-1 items-center">
@@ -340,7 +340,7 @@ const LogViewer = ({ logs }: { logs: ExecutionLog[] | undefined }) => {
             {logs.map((log) => (
               <TableRow key={log.id} className="text-muted-foreground">
                 <TableCell
-                  className="text-xs text-muted-foreground p-[2px] pl-4"
+                  className="text-xs text-muted-foreground p-0.5 pl-4"
                   width={190}
                 >
                   {log.timestamp.toISOString()}
@@ -348,7 +348,7 @@ const LogViewer = ({ logs }: { logs: ExecutionLog[] | undefined }) => {
                 <TableCell
                   width={80}
                   className={cn(
-                    "uppercase text-xs fond-bold p-[3px] pl-4",
+                    "uppercase text-xs fond-bold p-0.75 pl-4",
                     (log.logLevel as LogLevel) === "error" &&
                       "text-destructive",
                     (log.logLevel as LogLevel) === "info" && "text-primary",

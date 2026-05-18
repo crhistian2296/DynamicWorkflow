@@ -47,7 +47,7 @@ const ExecutionStatusChart = ({ data }: { data: ChartDataType }) => {
       </CardHeader>
       <CardContent>
         {/* <pre>{JSON.stringify(data, null, 4)}</pre> */}
-        <ChartContainer config={chartConfig} className="h-[300px] w-full">
+        <ChartContainer config={chartConfig} className="h-75 w-full">
           <AreaChart
             data={data}
             height={200}
@@ -71,7 +71,7 @@ const ExecutionStatusChart = ({ data }: { data: ChartDataType }) => {
             />
             <ChartLegend content={<ChartLegendContent />} />
             <ChartTooltip
-              content={<ChartTooltipContent className="w-[250px]" />}
+              content={<ChartTooltipContent className="w-62.5" />}
             />
             <Area
               dataKey="failed"

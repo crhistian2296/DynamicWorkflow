@@ -47,7 +47,7 @@ export function UserWorkflows() {
 
   return (
     <div className="space-y">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         {workflows.map((workflow) => (
           <WorkflowCard key={workflow.id} workflow={workflow} />
         ))}
@@ -59,7 +59,7 @@ export function UserWorkflows() {
 export const UserWorkflowsSkeleton = () => {
   const arr = [1, 2, 3, 4];
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
       {arr.map((i) => (
         <Skeleton key={i} className="h-36 lg:h-48 w-full" />
       ))}

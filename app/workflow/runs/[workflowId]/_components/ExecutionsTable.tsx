@@ -58,7 +58,7 @@ const ExecutionsTable = ({
           {executions.map((execution) => {
             const duration = DatesToDurationString(
               execution.createdAt,
-              execution.completedAt
+              execution.completedAt,
             );
             const formattedStartedAt =
               execution.startedAt &&
@@ -78,7 +78,9 @@ const ExecutionsTable = ({
                     <span className="font-semibold">{execution.id}</span>
                     <div className="text-muted-foreground text-xs">
                       <span>Triggered via</span>
-                      <Badge variant={"outline"}>{execution.trigger}</Badge>
+                      <Badge variant={"outline"} className="ml-1">
+                        {execution.trigger}
+                      </Badge>
                     </div>
                   </div>
                 </TableCell>

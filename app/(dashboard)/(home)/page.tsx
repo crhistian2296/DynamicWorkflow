@@ -22,10 +22,10 @@ async function HomePage({
         };
 
   return (
-    <div className="flex flex-1 flex-col h-full">
+    <div className="flex flex-1 flex-col h-full p-4">
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold">Home</h1>
-        <Suspense fallback={<Skeleton className="w-[200px] h-10" />}>
+        <Suspense fallback={<Skeleton className="w-50 h-10" />}>
           <PeriodSelectorWrapper selectedPeriod={period} />
         </Suspense>
       </div>
@@ -33,10 +33,10 @@ async function HomePage({
         <Suspense fallback={<StatsCardsSkeleton />}>
           <StatsCards selectedPeriod={period} />
         </Suspense>
-        <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+        <Suspense fallback={<Skeleton className="w-full h-75" />}>
           <ExecutionsStatsWrapper selectedPeriod={period} />
         </Suspense>
-        <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+        <Suspense fallback={<Skeleton className="w-full h-75" />}>
           <CreditsUsageInPeriodWrapper selectedPeriod={period} />
         </Suspense>
       </div>

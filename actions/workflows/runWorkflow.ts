@@ -81,6 +81,6 @@ export const RunWorkflow = async (form: {
 
   ExecuteWorkflow(execution.id); //run in background
 
-  revalidatePath("/workflow/runs");
+  revalidatePath(`/workflow/runs/${workflowId}`);
   redirect(`/workflow/runs/${workflowId}/${execution.id}`);
 };
