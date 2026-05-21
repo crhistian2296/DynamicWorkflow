@@ -10,6 +10,8 @@ import {
 import CronExpressionParser from "cron-parser";
 import { timingSafeEqual } from "crypto";
 
+export const dynamic = "force-dynamic";
+
 function isValidSecret(token: string) {
   const API_SECRET = process.env.API_SECRET_TOKEN;
   if (!API_SECRET) {
