@@ -56,7 +56,9 @@ const DeleteCredentialDialog = ({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete credential</AlertDialogTitle>
+          <AlertDialogTitle className="py-3">
+            Delete credential
+          </AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogDescription>
           If you delete this credential, it will be permanently deleted. This

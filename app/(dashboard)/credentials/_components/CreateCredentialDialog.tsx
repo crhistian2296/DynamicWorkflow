@@ -69,7 +69,7 @@ const CreateCredentialDialog = ({ triggerText }: { triggerText?: string }) => {
           icon={ShieldEllipsis}
           title="Create a new credential"
         />
-        <div className="p-6">
+        <div className="p-6 pt-0">
           <FormProvider {...form}>
             <form
               className="space-y-8 w-full"

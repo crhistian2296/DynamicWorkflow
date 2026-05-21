@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Logo from "./Logo";
 import { Button, buttonVariants } from "./ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import UserAvailableCreditsBadge from "./UserAvailableCreditsBadge";
 
 const routes = [
@@ -40,7 +40,7 @@ const DesktopSidebar = () => {
   const pathname = usePathname();
   const activeRoute =
     routes.find(
-      (route) => route.href.length > 0 && pathname.includes(route.href)
+      (route) => route.href.length > 0 && pathname.includes(route.href),
     ) || routes[0];
 
   return (
@@ -77,7 +77,7 @@ export const MobileSidebar = () => {
   const pathname = usePathname();
   const activeRoute =
     routes.find(
-      (route) => route.href.length > 0 && pathname.includes(route.href)
+      (route) => route.href.length > 0 && pathname.includes(route.href),
     ) || routes[0];
 
   return (
@@ -93,6 +93,7 @@ export const MobileSidebar = () => {
             className="w-[400px] sm:w-[540px] space-y-4"
             side={"left"}
           >
+            <SheetTitle className="sr-only">Navigation</SheetTitle>
             <Logo />
             <UserAvailableCreditsBadge />
             <div className="flex flex-col gap-1">

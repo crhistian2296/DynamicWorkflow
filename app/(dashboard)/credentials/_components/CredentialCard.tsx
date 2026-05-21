@@ -16,7 +16,7 @@ const CredentialCard = ({ id, name, createdAt }: Props) => {
 
   return (
     <Card className="w-full p-4 flex justify-between">
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-4 items-center">
         <div className="rounded-full bg-primary/10 w-10 h-10 flex items-center justify-center">
           <LockKeyholeIcon size={18} className="stroke-primary" />
         </div>
