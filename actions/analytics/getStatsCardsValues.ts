@@ -9,7 +9,7 @@ import { auth } from "@clerk/nextjs/server";
 const { COMPLETED, FAILED } = WorkflowExecutionStatus;
 
 const GetStatsCardsValues = async (period: UiPeriod) => {
-  const { userId } = await auth();
+  const { userId } = await auth.protect();
   if (!userId) throw new Error("Unauthorized");
 
   const dateRange = PeriodToDateRange(period);
@@ -40,11 +40,13 @@ const GetStatsCardsValues = async (period: UiPeriod) => {
   const stats = {
     workflowExecutions: executions.length,
     totalCreditsConsumed: executions.reduce(
-      (acc, exec) => acc + (exec.creditsConsumed || 0),
+      (acc: number, exec: (typeof executions)[number]) =>
+        acc + (exec.creditsConsumed || 0),
       0,
     ),
     phaseExecutions: executions.reduce(
-      (acc, exec) => acc + (exec.phases?.length || 0),
+      (acc: number, exec: (typeof executions)[number]) =>
+        acc + (exec.phases?.length || 0),
       0,
     ),
   };

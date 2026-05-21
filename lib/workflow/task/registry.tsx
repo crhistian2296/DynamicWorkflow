@@ -11,6 +11,7 @@ import { NavigateToUrlTask } from "./NavigateToUrl";
 import { PageToHtmlTask } from "./PageToHtml";
 import { ReadPropertyFromJsonTask } from "./ReadPropertyFromJson";
 import { ScrollToElementTask } from "./ScrollToElement";
+import { TranslateWithAiTask } from "./TranslateWithAi";
 import { WaitForElementTask } from "./WaitForElement";
 
 type Registry = {
@@ -32,4 +33,5 @@ export const TaskRegistry: Registry = {
   ADD_PROPERTY_FROM_JSON: AddPropertyFromJsonTask,
   NAVIGATE_TO_URL: NavigateToUrlTask,
   SCROLL_TO_ELEMENT: ScrollToElementTask,
+  TRANSLATE_WITH_AI: TranslateWithAiTask,
 };

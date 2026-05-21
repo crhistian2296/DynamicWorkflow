@@ -2,9 +2,13 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import Editor from "../../_components/Editor";
 
-const page = async ({ params }: { params: { workflowId: string } }) => {
-  const { workflowId } = params;
-  const { userId } = auth();
+const page = async ({
+  params,
+}: {
+  params: Promise<{ workflowId: string }>;
+}) => {
+  const { workflowId } = await params;
+  const { userId } = await auth.protect();
 
   if (!userId) return <div>Unauthorized</div>;
 

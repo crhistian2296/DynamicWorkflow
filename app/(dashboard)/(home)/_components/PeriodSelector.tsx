@@ -30,7 +30,7 @@ const PeriodSelector = ({ periods, selectedPeriod }: Props) => {
         router.push(newUrl);
       }}
     >
-      <SelectTrigger className="w-[200px] capitalize">
+      <SelectTrigger className="w-50 capitalize">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

@@ -65,7 +65,7 @@ const CredentialsParam = ({
           </SelectGroup>
           {aiModels.data && aiModels.data.length > 0 && (
             <SelectGroup>
-              <SelectLabel>Local AI models</SelectLabel>
+              <SelectLabel>Ollama AI models</SelectLabel>
               {aiModels.data?.map(({ model }) => {
                 return (
                   <SelectItem key={model} value={`${model} (local model)`}>

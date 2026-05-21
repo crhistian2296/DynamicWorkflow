@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export async function DeleteCredential(id: string) {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) throw new Error("Unauthorized");
 
   await prisma.credential.delete({

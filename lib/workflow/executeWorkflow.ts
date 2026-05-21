@@ -4,7 +4,6 @@ import { TaskParamType } from "@/types/task";
 import { WorkflowExecutionStatus } from "@/types/workflows";
 import { ExecutionPhase, Workflow, WorkflowExecution } from "@prisma/client";
 import { Edge } from "@xyflow/react";
-import { revalidatePath } from "next/cache";
 import { Browser, Page } from "puppeteer";
 import "server-only";
 import { LogCollector } from "../../types/log";
@@ -59,7 +58,6 @@ export async function ExecuteWorkflow(executionId: string, nextRunAt?: Date) {
   );
 
   await cleanupEnvironment(environment);
-  revalidatePath("workflow/runs");
 }
 
 async function initializeWorkflowExecution(

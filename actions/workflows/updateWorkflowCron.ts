@@ -12,7 +12,7 @@ export async function UpdateWorkflowCron({
   id: string;
   cron: string;
 }) {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) {
     throw new Error("User not authenticated");
   }

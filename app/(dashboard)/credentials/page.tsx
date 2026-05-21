@@ -9,7 +9,7 @@ import CredentialCard from "./_components/CredentialCard";
 
 const CredentialsPage = () => {
   return (
-    <div className="flex flex-1 flex-col h-full">
+    <div className="flex flex-1 flex-col h-full p-4">
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
           <h1 className="text-3xl font-bold">Credentials</h1>
@@ -18,7 +18,7 @@ const CredentialsPage = () => {
         <CreateCredentialDialog />
       </div>
 
-      <div className="h-full py-6">
+      <div className="h-full py-6 gap-4 flex flex-col">
         <Alert>
           <ShieldIcon className="h-4 w-4 stroke-primary" />
           <AlertTitle className="text-primary">Encryption</AlertTitle>

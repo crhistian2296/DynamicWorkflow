@@ -13,20 +13,16 @@ interface StatsCardProps {
   icon: LucideIcon;
 }
 
-export function StatsCards({
-  selectedPeriod,
-}: {
-  selectedPeriod: UiPeriod;
-}) {
-  const {data} = useQuery({
+export function StatsCards({ selectedPeriod }: { selectedPeriod: UiPeriod }) {
+  const { data } = useQuery({
     queryKey: ["stats-cards-values", selectedPeriod],
     queryFn: async () => GetStatsCardsValues(selectedPeriod),
     enabled: !!selectedPeriod,
     refetchInterval: 10000, // Refetch stats cards values every 10 seconds in case there are new workflow executions
-  })
+  });
 
   return (
-    <div className="grid gap-3 lg:gap-8 lg:grid-cols-3 min-h-[120px]">
+    <div className="grid gap-3 lg:gap-5 lg:grid-cols-3">
       <StatsCard
         title="Workflow executions"
         value={data?.workflowExecutions ?? 0}

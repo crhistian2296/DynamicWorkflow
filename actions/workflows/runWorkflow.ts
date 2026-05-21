@@ -12,13 +12,14 @@ import {
   WorkflowStatus,
 } from "@/types/workflows";
 import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const RunWorkflow = async (form: {
   workflowId: string;
   flowDefinition?: string;
 }) => {
-  const { userId } = auth();
+  const { userId } = await auth.protect();
   if (!userId) throw new Error("User not authenticated");
   const { workflowId, flowDefinition } = form;
   if (!workflowId) throw new Error("Workflow ID is required");
@@ -80,5 +81,6 @@ export const RunWorkflow = async (form: {
 
   ExecuteWorkflow(execution.id); //run in background
 
+  revalidatePath(`/workflow/runs/${workflowId}`);
   redirect(`/workflow/runs/${workflowId}/${execution.id}`);
 };
