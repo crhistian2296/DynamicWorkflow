@@ -16,6 +16,7 @@ import { creditsPacks, PackId } from "@/types/billing";
 import { useMutation } from "@tanstack/react-query";
 import { CoinsIcon, CreditCard } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const priceInCurrency = (price: number) => {
   const formatter = new Intl.NumberFormat("es-ES", {
@@ -34,8 +35,12 @@ const CreditsPurchase = () => {
 
   const mutation = useMutation({
     mutationFn: PurchaseCredits,
-    onSuccess: () => {},
-    onError: () => {},
+    onSuccess: () => {
+      toast.success("Redirecting to checkout...");
+    },
+    onError: () => {
+      toast.error("Failed to create checkout session");
+    },
   });
 
   return (

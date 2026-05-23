@@ -5,6 +5,7 @@ import stripe from "@/lib/stripe/stripe";
 import { getCreditsPack } from "@/types/billing";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 import { PackId } from "../../types/billing";
 
 const PurchaseCredits = async (packId: PackId) => {
@@ -40,9 +41,11 @@ const PurchaseCredits = async (packId: PackId) => {
   });
 
   if (!session.url) {
+    toast.error("Failed to create checkout session");
     throw new Error("Failed to create Stripe checkout session");
   }
 
+  console.log("Redirecting to Stripe checkout with session:", session);
   redirect(session.url);
 };
 
