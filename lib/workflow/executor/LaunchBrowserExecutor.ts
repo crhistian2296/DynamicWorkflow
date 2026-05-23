@@ -1,11 +1,12 @@
 import { ExecutionEnvironment } from "@/types/executor";
-import { existsSync, readdirSync } from "fs";
-import { homedir } from "os";
+import chromium from "@sparticuz/chromium";
+import { existsSync, mkdtempSync, readdirSync } from "fs";
+import { homedir, tmpdir } from "os";
 import { join } from "path";
 import puppeteer from "puppeteer";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
 
-function resolveChromePath(): string | undefined {
+function resolveLocalChromePath(): string | undefined {
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
     return process.env.PUPPETEER_EXECUTABLE_PATH;
   }
@@ -67,9 +68,25 @@ export const LaunchBrowserExecutor = async (
       return false;
     }
 
+    const localPath = resolveLocalChromePath();
+    const executablePath = localPath ?? (await chromium.executablePath());
+    const baseArgs = localPath ? [] : chromium.args;
+    // Use --user-data-dir as a Chrome arg (not the puppeteer option) so Puppeteer's
+    // lock-file mechanism is bypassed. mkdtempSync guarantees a fresh directory with
+    // no existing lock, preventing the "browser already running" error on dev-server
+    // restarts where the previous Chrome process was not cleanly shut down.
+    const userDataDir = mkdtempSync(join(tmpdir(), "pw_profile-"));
+    const launchArgs = [
+      ...baseArgs,
+      `--user-data-dir=${userDataDir}`,
+      "--no-first-run",
+      "--disable-default-apps",
+    ];
+
     const browser = await puppeteer.launch({
+      args: launchArgs,
+      executablePath,
       headless: true,
-      executablePath: resolveChromePath(),
     });
     environment.log.info(`Launched browser`);
     environment.setBrowser(browser);
