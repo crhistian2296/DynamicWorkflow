@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  serverExternalPackages: ["puppeteer"],
+  serverExternalPackages: ["puppeteer", "@prisma/client", "prisma"],
   eslint: {
     // Linting is run separately via `pnpm run lint`.
     // FlatCompat + eslint-plugin-react produces circular JSON during build.
