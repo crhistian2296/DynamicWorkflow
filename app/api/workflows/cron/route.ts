@@ -2,8 +2,6 @@ import { getAppUrl } from "@/lib/helper/appUrl";
 import prisma from "@/lib/prisma";
 import { WorkflowStatus } from "@/types/workflows";
 
-export const dynamic = "force-dynamic";
-
 export async function GET(req: Request) {
   const now = new Date();
   const workflows = await prisma.workflow.findMany({

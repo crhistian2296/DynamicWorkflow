@@ -43,7 +43,7 @@ const PurchaseCredits = async (packId: PackId) => {
     throw new Error("Failed to create Stripe checkout session");
   }
 
-  redirect("/billing");
+  redirect(session.url);
 };
 
 export default PurchaseCredits;

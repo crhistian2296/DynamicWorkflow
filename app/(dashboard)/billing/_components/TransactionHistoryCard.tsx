@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { UserPurchase } from "@prisma/client";
 import { ArrowLeftRightIcon } from "lucide-react";
 import InvoiceBtn from "./InvoiceBtn";
 
@@ -37,7 +36,7 @@ const TransactionHistoryCard = async () => {
         {purchases.length === 0 && (
           <p className="text-muted-foreground">No transactions found.</p>
         )}
-        {purchases.map((purchase: UserPurchase) => (
+        {purchases.map((purchase) => (
           <div
             key={purchase.id}
             className="flex justify-between items-center py-3 border-b last:border-b-0"
