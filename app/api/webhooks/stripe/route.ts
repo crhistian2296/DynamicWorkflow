@@ -1,34 +1,35 @@
 import HandleCheckoutSessionCompleted from "@/lib/stripe/handleCheckoutSessionCompleted";
 import stripe from "@/lib/stripe/stripe";
-import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
-export async function POST(request: Request) {
-  const body = await request.text();
-  const signature = request.headers.get("stripe-signature") as string;
+export async function POST(req: Request) {
+  const body = await req.text();
+  const headersList = await headers();
+  const signature = headersList.get("stripe-signature")!;
+
+  let event: import("stripe").default.Event;
 
   try {
-    const event = stripe.webhooks.constructEvent(
+    event = stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!,
     );
-
-    // console.log("@@@ Stripe Webhook Event:", event.type);
-
-    switch (event.type) {
-      case "checkout.session.completed":
-        HandleCheckoutSessionCompleted(event.data.object);
-        break;
-      default:
-        console.warn(`Unhandled event type: ${event.type}`);
-        break;
-    }
-
-    return new NextResponse(null, { status: 200 });
-  } catch (error) {
-    console.error("Error processing Stripe webhook:", error);
-    return new NextResponse("Webhook Error", { status: 400 });
+  } catch (err) {
+    console.error("Webhook signature verification failed:", err);
+    return new Response("Webhook Error", { status: 400 });
   }
+
+  switch (event.type) {
+    case "checkout.session.completed":
+      HandleCheckoutSessionCompleted(event.data.object);
+      break;
+    default:
+      console.warn(`Unhandled event type: ${event.type}`);
+      break;
+  }
+
+  return new Response("OK", { status: 200 });
 }

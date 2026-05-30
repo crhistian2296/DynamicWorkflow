@@ -45,7 +45,6 @@ const PurchaseCredits = async (packId: PackId) => {
     throw new Error("Failed to create Stripe checkout session");
   }
 
-  console.log("Redirecting to Stripe checkout with session:", session);
   redirect(session.url);
 };
 
