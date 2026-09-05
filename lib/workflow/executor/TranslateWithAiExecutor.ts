@@ -7,7 +7,7 @@ export const TranslateWithAiExecutor = async (
 ): Promise<boolean> => {
   try {
     const text = environment.getInput("Text");
-    if (!text) {
+    if (!text || text.length === 0) {
       environment.log.error("Text input is required");
       return false;
     }
@@ -32,12 +32,16 @@ export const TranslateWithAiExecutor = async (
 
     nim.auth(apiKey);
 
+    environment.log.info(
+      `Starting translation: ${sourceLang} → ${targetLang}, Text length: ${text.length} characters, Text preview: ${text.substring(0, 100)}...`,
+    );
+
     const response = await nim.create_chat_completion_v1_chat_completions_post({
       model: "nvidia/riva-translate-4b-instruct-v1.1",
       messages: [
         {
           role: "user",
-          content: `Translate the following text from ${sourceLang} to ${targetLang}. Return only the translated text, without explanations or notes.\n\n${text}`,
+          content: `Translate the following text from ${sourceLang} to ${targetLang}:${text}`,
         },
       ],
       temperature: 0,
