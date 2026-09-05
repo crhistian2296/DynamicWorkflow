@@ -37,7 +37,7 @@ export const TranslateWithAiExecutor = async (
     );
 
     const response = await nim.create_chat_completion_v1_chat_completions_post({
-      model: "nvidia/riva-translate-4b-instruct-v1.1",
+      model: "nvidia/riva-translate-4b-instruct-v2",
       messages: [
         {
           role: "user",
