@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 
 const SetupUser = async () => {
   const { isAuthenticated, userId } = await auth();
+  console.debug("isAuthenticated:", isAuthenticated, "userId:", userId);
+
   if (!isAuthenticated || !userId) {
     throw new Error("User not authenticated");
   }
