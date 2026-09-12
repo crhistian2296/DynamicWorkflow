@@ -4,6 +4,7 @@ import { DownloadInvoice } from "@/actions/billing/downloadInvoice";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2Icon } from "lucide-react";
+import { toast } from "sonner";
 
 const InvoiceBtn = ({ id }: { id: string }) => {
   const mutation = useMutation({
@@ -11,6 +12,14 @@ const InvoiceBtn = ({ id }: { id: string }) => {
     onSuccess: (data) => {
       if (data) {
         window.open(data, "_blank");
+      }
+    },
+    onError: (error) => {
+      if (error instanceof Error) {
+        console.error("Error downloading invoice:", error.message);
+      } else {
+        toast.error("Failed to download invoice");
+        console.error("Error downloading invoice:", error);
       }
     },
   });
