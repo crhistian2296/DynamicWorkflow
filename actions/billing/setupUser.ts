@@ -5,29 +5,34 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 const SetupUser = async () => {
-  const { isAuthenticated, userId } = await auth();
-  console.debug("isAuthenticated:", isAuthenticated, "userId:", userId);
+  try {
+    const { isAuthenticated, userId } = await auth();
 
-  if (!isAuthenticated || !userId) {
-    throw new Error("User not authenticated");
-  }
+    if (!isAuthenticated || !userId) {
+      throw new Error("User not authenticated");
+    }
 
-  const balance = await prisma.userBalance.findUnique({
-    where: {
-      userId,
-    },
-  });
-
-  if (!balance) {
-    await prisma.userBalance.create({
-      data: {
+    const balance = await prisma.userBalance.findUnique({
+      where: {
         userId,
-        credits: 500,
       },
     });
-  }
 
-  redirect("/");
+    if (!balance) {
+      await prisma.userBalance.create({
+        data: {
+          userId,
+          credits: 500,
+        },
+      });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error("Failed to set up user balance: " + error.message);
+    }
+  } finally {
+    redirect("/");
+  }
 };
 
 export default SetupUser;
