@@ -2,10 +2,9 @@
 
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const SetupUser = async () => {
-  const router = useRouter();
   const { isAuthenticated, userId } = await auth();
   if (!isAuthenticated || !userId) {
     throw new Error("User not authenticated");
@@ -26,7 +25,7 @@ const SetupUser = async () => {
     });
   }
 
-  router.push("/");
+  redirect("/");
 };
 
 export default SetupUser;
