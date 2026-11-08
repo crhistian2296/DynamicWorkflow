@@ -3,7 +3,7 @@ import chromium from "@sparticuz/chromium";
 import { existsSync, mkdtempSync, readdirSync } from "fs";
 import { homedir, tmpdir } from "os";
 import { join } from "path";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core"; // antes: "puppeteer"
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
 
 function resolveLocalChromePath(): string | undefined {
@@ -68,7 +68,8 @@ export const LaunchBrowserExecutor = async (
       return false;
     }
 
-    const localPath = resolveLocalChromePath();
+    const isServerless = !!process.env.VERCEL;
+    const localPath = isServerless ? undefined : resolveLocalChromePath();
     const executablePath = localPath ?? (await chromium.executablePath());
     const baseArgs = localPath ? [] : chromium.args;
     // Use --user-data-dir as a Chrome arg (not the puppeteer option) so Puppeteer's
@@ -86,7 +87,7 @@ export const LaunchBrowserExecutor = async (
     const browser = await puppeteer.launch({
       args: launchArgs,
       executablePath,
-      headless: true,
+      headless: localPath ? true : "shell", // "shell" es lo que espera el build de sparticuz
     });
     environment.log.info(`Launched browser`);
     environment.setBrowser(browser);
