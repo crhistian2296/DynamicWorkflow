@@ -89,6 +89,7 @@ export const LaunchBrowserExecutor = async (
       executablePath,
       headless: localPath ? true : "shell", // "shell" es lo que espera el build de sparticuz
     });
+
     environment.log.info(`Launched browser`);
     environment.setBrowser(browser);
     const page = await browser.newPage();
