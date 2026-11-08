@@ -9,13 +9,14 @@ import { toast } from "sonner";
 export const RunBtn = ({ workflowId }: { workflowId: string }) => {
   const mutation = useMutation({
     mutationFn: RunWorkflow,
-    onSuccess: () => {
+    onError: (error) => {
+      if (error.message?.startsWith("NEXT_REDIRECT")) return;
+      toast.error("Failed to start workflow execution", { id: workflowId });
+    },
+    onSettled: () => {
       toast.success("Workflow execution started successfully", {
         id: workflowId,
       });
-    },
-    onError: () => {
-      toast.error("Failed to start workflow execution", { id: workflowId });
     },
   });
   return (

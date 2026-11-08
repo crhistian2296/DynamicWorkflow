@@ -13,12 +13,15 @@ const ExecuteBtn = ({ workflowId }: { workflowId: string }) => {
   const { toObject } = useReactFlow();
   const mutation = useMutation({
     mutationFn: RunWorkflow,
-    onSuccess: () =>
-      toast.success("Workflow execution started", { id: "flow-execution" }),
     onError: (error) => {
       if (error.message?.startsWith("NEXT_REDIRECT")) return;
       toast.error(`Error executing workflow: ${error.message}`, {
         id: "flow-execution-error",
+      });
+    },
+    onSettled: () => {
+      toast.success("Workflow execution started successfully", {
+        id: workflowId,
       });
     },
   });
@@ -28,6 +31,7 @@ const ExecuteBtn = ({ workflowId }: { workflowId: string }) => {
       className="flex items-center gap-2"
       disabled={mutation.isPending}
       onClick={() => {
+        toast.loading("Starting workflow execution...", { id: workflowId });
         const executionPlan = generate();
         if (!executionPlan) {
           // Client-side validation failed
