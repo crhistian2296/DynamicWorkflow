@@ -22,7 +22,7 @@ async function HomePage({
         };
 
   return (
-    <div className="flex flex-1 flex-col h-full p-4">
+    <div className="w-full p-4">
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold">Home</h1>
         <Suspense fallback={<Skeleton className="w-50 h-10" />}>

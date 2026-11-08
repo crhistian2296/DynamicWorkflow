@@ -6,8 +6,8 @@ import { CoinsIcon } from "lucide-react";
 const BalanceCard = async () => {
   const userBalance = (await GetAvailableCredits()) ?? 0;
   return (
-    <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-primary/20 shadow-lg flex justify-between flex-col overflow-hidden">
-      <CardContent className="p-6 relative items-center">
+    <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-primary/20 shadow-lg flex justify-between flex-col overflow-hidden m-0!">
+      <CardContent className="p-4 relative items-center">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-foreground mb-1">
             Available Credits

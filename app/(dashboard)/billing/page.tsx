@@ -7,7 +7,7 @@ import TransactionHistoryCard from "./_components/TransactionHistoryCard";
 
 const BillingPage = () => {
   return (
-    <div className="w-full p-4 space-y-8">
+    <div className="flex flex-col w-full p-4 pb-8 gap-4">
       <h1 className="text-3xl font-bold">Billing</h1>
       <Suspense fallback={<Skeleton className="h-41.5 w-full" />}>
         <BalanceCard />
