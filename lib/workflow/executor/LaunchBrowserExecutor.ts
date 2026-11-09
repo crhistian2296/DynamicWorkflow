@@ -93,7 +93,10 @@ export const LaunchBrowserExecutor = async (
     environment.log.info(`Launched browser`);
     environment.setBrowser(browser);
     const page = await browser.newPage();
-    await page.goto(websiteUrl);
+    await page.goto(websiteUrl, {
+      waitUntil: "domcontentloaded", // no espera imágenes, anuncios ni trackers
+      timeout: 300000,
+    });
     environment.setPage(page);
     environment.log.info(`Page loaded: ${websiteUrl}`);
     return true;
